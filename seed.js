@@ -9,6 +9,10 @@ if (!MONGODB_URI) {
   console.error("Please add MONGODB_URI to .env.local before running seed.");
   process.exit(1);
 }
+if (process.env.USER_ENV !== 'DEV') {
+  console.error("Please add USER_ENV=DEV to .env.local before running seed.");
+  process.exit(1);
+}
 
 const workoutSchema = new mongoose.Schema({
   title: String,
