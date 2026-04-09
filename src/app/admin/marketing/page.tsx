@@ -65,12 +65,24 @@ export default async function MarketingDashboard() {
               <p className="text-on-surface-variant font-medium text-center py-8 text-sm">No journal entries.</p>
             ) : (
               posts.map((post: any) => (
-                <div key={post._id.toString()} className="p-4 rounded-xl bg-surface-container-highest border border-white/5">
-                  <h4 className="font-bold text-white text-sm uppercase tracking-wider mb-1">{post.title}</h4>
-                  <p className="text-xs text-on-surface-variant line-clamp-2 mb-2">{post.excerpt}</p>
-                  <span className="text-[9px] font-bold uppercase tracking-widest bg-surface-container-lowest px-2 py-1 rounded text-white/70">
-                    {post.category}
-                  </span>
+                <div key={post._id.toString()} className="flex justify-between p-4 rounded-xl bg-surface-container-highest border border-white/5">
+                  <div className="flex-1 mr-4">
+                    <h4 className="font-bold text-white text-sm uppercase tracking-wider mb-1">{post.title}</h4>
+                    <p className="text-xs text-on-surface-variant line-clamp-2 mb-2">{post.excerpt}</p>
+                    <span className="text-[9px] font-bold uppercase tracking-widest bg-surface-container-lowest px-2 py-1 rounded text-white/70">
+                      {post.category}
+                    </span>
+                  </div>
+                  <div className="flex flex-col gap-2 items-center justify-center">
+                    <Link href={`/admin/marketing/posts/${post._id}/edit`} className="material-symbols-outlined text-on-surface-variant hover:text-white transition-colors">edit</Link>
+                    <form action={async () => {
+                      'use server';
+                      const { deletePost } = await import('@/app/admin/actions');
+                      await deletePost(post._id.toString());
+                    }}>
+                      <button type="submit" className="material-symbols-outlined text-error hover:text-error-dim transition-colors mt-2">delete</button>
+                    </form>
+                  </div>
                 </div>
               ))
             )}

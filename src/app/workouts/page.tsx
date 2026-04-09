@@ -19,7 +19,7 @@ export default async function WorkoutsLibrary({
   }
 
   // Fetch dummy workouts
-  let docs = [];
+  let docs: any[] = [];
   try {
     docs = await Workout.find().lean() || [];
   } catch (e) {
@@ -29,8 +29,8 @@ export default async function WorkoutsLibrary({
   const allBasicWorkouts = docs.filter(w => w.tier === 'basic' || !w.tier);
   const premiumWorkouts = docs.filter(w => w.tier === 'premium');
 
-  const basicWorkouts = currentFocus === 'All' 
-    ? allBasicWorkouts 
+  const basicWorkouts = currentFocus === 'All'
+    ? allBasicWorkouts
     : allBasicWorkouts.filter(w => w.categories && w.categories.map((c: string) => c.toUpperCase()).includes(currentFocus.toUpperCase()));
 
   const filters = [
@@ -55,11 +55,10 @@ export default async function WorkoutsLibrary({
               <Link
                 key={f.value}
                 href={`?focus=${f.value}`}
-                className={`px-6 py-3 rounded-full font-bold text-xs uppercase tracking-widest whitespace-nowrap active:scale-95 transition-transform ${
-                  isActive 
-                    ? 'bg-primary-container text-on-primary-container' 
+                className={`px-6 py-3 rounded-full font-bold text-xs uppercase tracking-widest whitespace-nowrap active:scale-95 transition-transform ${isActive
+                    ? 'bg-primary-container text-on-primary-container'
                     : 'bg-surface-container-high text-on-surface-variant'
-                }`}
+                  }`}
               >
                 {f.label}
               </Link>
@@ -76,7 +75,7 @@ export default async function WorkoutsLibrary({
             <p className="text-on-surface-variant text-sm font-medium">Foundation series for elite performance</p>
           </div>
         </div>
-        
+
         {basicWorkouts.length === 0 && (
           <p className="text-outline my-8 text-sm italic">No basic workouts explicitly set for this focus yet.</p>
         )}
@@ -116,7 +115,7 @@ export default async function WorkoutsLibrary({
           <span className="material-symbols-outlined text-tertiary" style={{ fontVariationSettings: "'FILL' 1" }}>workspace_premium</span>
           <h2 className="font-headline text-3xl font-extrabold uppercase italic tracking-tighter text-tertiary">Premium Series</h2>
         </div>
-        
+
         <div className="space-y-6">
           {premiumWorkouts.map((workout: any) => (
             <Link href={`/workouts/${workout._id}`} key={workout._id.toString()} className="block relative group rounded-2xl p-[1px] bg-gradient-to-br from-tertiary/40 via-surface-container-highest to-surface-container-lowest">
@@ -140,8 +139,8 @@ export default async function WorkoutsLibrary({
                     </div>
                   </div>
                   <div>
-                     {/* Lock icon */}
-                     <span className="material-symbols-outlined text-[60px] text-tertiary md:text-[80px]" style={{ fontVariationSettings: "'FILL' 1" }}>lock</span>
+                    {/* Lock icon */}
+                    <span className="material-symbols-outlined text-[60px] text-tertiary md:text-[80px]" style={{ fontVariationSettings: "'FILL' 1" }}>lock</span>
                   </div>
                 </div>
               </div>
