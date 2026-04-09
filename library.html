@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Workout Library | KINETIC</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700;800;900&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#adaaaa",
+                        "on-background": "#ffffff",
+                        "on-tertiary-container": "#584500",
+                        "on-tertiary-fixed": "#413200",
+                        "tertiary-container": "#f5ce53",
+                        "on-primary": "#516700",
+                        "on-secondary-container": "#d2d0cf",
+                        "on-error-container": "#ffd2c8",
+                        "background": "#0e0e0e",
+                        "primary-fixed-dim": "#beee00",
+                        "on-tertiary-fixed-variant": "#634e00",
+                        "inverse-surface": "#fcf9f8",
+                        "on-primary-container": "#4a5e00",
+                        "primary-container": "#cafd00",
+                        "on-tertiary": "#624e00",
+                        "primary-dim": "#beee00",
+                        "surface-dim": "#0e0e0e",
+                        "error-dim": "#d53d18",
+                        "on-error": "#450900",
+                        "inverse-on-surface": "#565555",
+                        "tertiary-fixed": "#f5ce53",
+                        "on-secondary-fixed-variant": "#5c5b5b",
+                        "tertiary-fixed-dim": "#e6c047",
+                        "error": "#ff7351",
+                        "surface-container-low": "#131313",
+                        "secondary-dim": "#d7d4d3",
+                        "outline": "#767575",
+                        "primary-fixed": "#cafd00",
+                        "on-primary-fixed": "#3a4a00",
+                        "error-container": "#b92902",
+                        "tertiary-dim": "#e6c047",
+                        "outline-variant": "#484848",
+                        "surface-container-lowest": "#000000",
+                        "primary": "#f3ffca",
+                        "surface-container": "#191a1a",
+                        "surface": "#0e0e0e",
+                        "inverse-primary": "#516700",
+                        "secondary-fixed-dim": "#d7d4d3",
+                        "surface-bright": "#2c2c2c",
+                        "surface-variant": "#262626",
+                        "on-surface": "#ffffff",
+                        "on-secondary-fixed": "#403f3f",
+                        "on-primary-fixed-variant": "#526900",
+                        "surface-container-highest": "#262626",
+                        "surface-container-high": "#1f2020",
+                        "secondary-container": "#474646",
+                        "on-secondary": "#525151",
+                        "secondary-fixed": "#e5e2e1",
+                        "tertiary": "#ffdd79",
+                        "surface-tint": "#f3ffca",
+                        "secondary": "#e5e2e1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Lexend"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .glass-card {
+            background: rgba(38, 38, 38, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-gradient-to-b from-[#131313] to-transparent">
+<div class="flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full border border-primary/20 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up portrait of a focused athlete with sweat beads, dramatic high-contrast lighting in a dark gym environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvjsZUuUoxkbrLYTba1cp7n15Kfz1ERtO0v_qOL9uN0Ycls_Lqdis-9GBT185VoFBDBvf6yJTpDP7gqCNuknxl6gMi8eUsszEp1b10uv8R_zyLbg5Bn3FNC68x_aTkFqdTJEXqUNmAGmY2lKnM2xCFXyTZTXTdex8d9Dn19bPlS-e-EePgdrYtjD62PfiU7_QWMPxe5Eg_LdmaJnPzHopU0VS8jWeCqzF5ITaAlh1hbmDpkxEGeMxkrQFqNaVJWpc4E8Dse_QSmXg"/>
+</div>
+</div>
+<h1 class="font-headline uppercase tracking-tighter headline-md text-white font-black italic text-2xl tracking-widest text-[#f3ffca]">KINETIC</h1>
+<button class="material-symbols-outlined text-[#f3ffca] hover:opacity-80 transition-opacity active:scale-95 transition-transform" data-icon="notifications">notifications</button>
+</div>
+</header>
+<main class="pt-24 pb-32 px-6">
+<!-- Body Part Selector -->
+<section class="mb-10 overflow-hidden">
+<h2 class="font-headline text-xs font-bold uppercase tracking-[0.2em] text-on-surface-variant mb-4">Target Focus</h2>
+<div class="flex gap-3 overflow-x-auto no-scrollbar pb-2">
+<button class="px-6 py-3 rounded-full bg-primary-container text-on-primary-container font-bold text-xs uppercase tracking-widest whitespace-nowrap active:scale-95 transition-transform">All Focus</button>
+<button class="px-6 py-3 rounded-full bg-surface-container-high text-on-surface-variant font-bold text-xs uppercase tracking-widest whitespace-nowrap active:scale-95 transition-transform">Chest</button>
+<button class="px-6 py-3 rounded-full bg-surface-container-high text-on-surface-variant font-bold text-xs uppercase tracking-widest whitespace-nowrap active:scale-95 transition-transform">Back</button>
+<button class="px-6 py-3 rounded-full bg-surface-container-high text-on-surface-variant font-bold text-xs uppercase tracking-widest whitespace-nowrap active:scale-95 transition-transform">Legs</button>
+<button class="px-6 py-3 rounded-full bg-surface-container-high text-on-surface-variant font-bold text-xs uppercase tracking-widest whitespace-nowrap active:scale-95 transition-transform">Arms</button>
+</div>
+</section>
+<!-- Basic Workout Plans -->
+<section class="mb-12">
+<div class="flex justify-between items-end mb-6">
+<div>
+<h2 class="font-headline text-3xl font-extrabold uppercase italic tracking-tighter text-white">Basic Plans</h2>
+<p class="text-on-surface-variant text-sm font-medium">Foundation series for elite performance</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Card 1 -->
+<div class="group relative rounded-xl overflow-hidden bg-surface-container-low active:scale-[0.98] transition-all">
+<div class="h-48 w-full overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Muscular male athlete performing heavy barbell bench press in a moody obsidian-themed gym with cinematic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEoqy1GZdVtoiSZmTcwC4Xu00x57c1lQpSfRA5Rdojs1HCAs2xcECt2ORvrvDm7o-n7AqTD48J5kPkBrCrbqvsYVTlWIscB_nXyLiRIB8J4CLKS9_1R0JFs3SuAj6O-LH-xQEabX4EhXAOeL4qX9XymV5Nt_SYEhImHxsKVw5D8BcAk0GZR3ttlN_f0l0lbQ72eR81W6JbATtO56zA3sOYm6ICjianU5XVIogoFbuZGxiR1_OxClXqq6DWql1YtkvWsRKG5nBM6UA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low via-transparent to-transparent"></div>
+<div class="absolute top-4 right-4 glass-card px-3 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-primary" data-icon="bolt">bolt</span>
+<span class="text-[10px] font-bold text-white uppercase tracking-widest">Intermediate</span>
+</div>
+</div>
+<div class="p-6">
+<h3 class="font-headline text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors">Hypertrophy Alpha</h3>
+<div class="flex items-center gap-4 text-on-surface-variant">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+<span class="text-xs font-bold uppercase tracking-wider">45 Mins</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm" data-icon="fitness_center">fitness_center</span>
+<span class="text-xs font-bold uppercase tracking-wider">Chest &amp; Back</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group relative rounded-xl overflow-hidden bg-surface-container-low active:scale-[0.98] transition-all">
+<div class="h-48 w-full overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Athlete doing dynamic kettlebell swings, high speed action shot with motion blur in a dark, atmospheric fitness studio" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIQ-AoNBlSqaXESu57qKw5LlmrF3BhXQknPEtxTxxJT5hy-2v9zx-7xHcF62IjwcGTJOTD7uHDkiLB4uwKkW7ChbvAMH0XgGUu_Hsed4OYKOWlhwit1-MPkvpMvyD-Pyi9L-ED2-DR4EyJUtBnWnG109y_oTaEp-_BeQ5-7l8QE3p6lV_0M9DSPRFaX7be8fbdSRieuun7UB4Qr8ELeFCsAAJvbs5Z4gDFRzS8fos45t89bMjyWIEbwyQRIDAsSZu75uOhyqTTAS8"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low via-transparent to-transparent"></div>
+<div class="absolute top-4 right-4 glass-card px-3 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-primary" data-icon="bolt">bolt</span>
+<span class="text-[10px] font-bold text-white uppercase tracking-widest">Beginner</span>
+</div>
+</div>
+<div class="p-6">
+<h3 class="font-headline text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors">Metabolic Burn</h3>
+<div class="flex items-center gap-4 text-on-surface-variant">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+<span class="text-xs font-bold uppercase tracking-wider">30 Mins</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm" data-icon="fitness_center">fitness_center</span>
+<span class="text-xs font-bold uppercase tracking-wider">Full Body</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bento Style Grid for smaller cards -->
+<div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-3 gap-6">
+<!-- Basic Card 3 -->
+<div class="bg-surface-container-high p-5 rounded-xl flex flex-col justify-between h-40 group cursor-pointer border border-transparent hover:border-primary/20 transition-all">
+<h3 class="font-headline text-lg font-bold text-white leading-tight">Core<br/>Stability X</h3>
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">15 Mins · Low</span>
+</div>
+<span class="material-symbols-outlined text-primary group-hover:translate-x-2 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</div>
+</div>
+<!-- Basic Card 4 -->
+<div class="bg-surface-container-high p-5 rounded-xl flex flex-col justify-between h-40 group cursor-pointer border border-transparent hover:border-primary/20 transition-all">
+<h3 class="font-headline text-lg font-bold text-white leading-tight">Leg<br/>Engine</h3>
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">50 Mins · High</span>
+</div>
+<span class="material-symbols-outlined text-primary group-hover:translate-x-2 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</div>
+</div>
+<!-- Basic Card 5 -->
+<div class="bg-surface-container-high p-5 rounded-xl flex flex-col justify-between h-40 group cursor-pointer border border-transparent hover:border-primary/20 transition-all">
+<h3 class="font-headline text-lg font-bold text-white leading-tight">Endurance<br/>Flow</h3>
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">40 Mins · Med</span>
+</div>
+<span class="material-symbols-outlined text-primary group-hover:translate-x-2 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Premium Section -->
+<section class="mt-20">
+<div class="flex items-center gap-4 mb-8">
+<span class="material-symbols-outlined text-tertiary" data-icon="workspace_premium" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<h2 class="font-headline text-3xl font-extrabold uppercase italic tracking-tighter text-tertiary">Premium Series</h2>
+</div>
+<div class="space-y-6">
+<!-- Premium Card 1 -->
+<div class="relative group rounded-2xl p-[1px] bg-gradient-to-br from-tertiary/40 via-surface-container-highest to-surface-container-lowest">
+<div class="bg-surface-container-lowest rounded-[calc(1.5rem-1px)] p-6 flex items-center justify-between overflow-hidden relative">
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-2">
+<span class="text-[10px] font-black bg-tertiary text-on-tertiary-fixed px-2 py-0.5 rounded tracking-[0.2em]">ELITE</span>
+<span class="text-xs font-bold text-on-surface-variant uppercase tracking-widest">24 Sessions</span>
+</div>
+<h3 class="font-headline text-2xl font-bold text-white mb-2">The Pro-Athlete Protocol</h3>
+<div class="flex items-center gap-4 text-on-surface-variant">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm" data-icon="timer">timer</span>
+<span class="text-xs font-bold uppercase tracking-wider">60-90 Mins</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm" data-icon="trending_up">trending_up</span>
+<span class="text-xs font-bold uppercase tracking-wider">Max Intensity</span>
+</div>
+</div>
+</div>
+<div class="absolute -right-4 -bottom-10 opacity-20 group-hover:opacity-40 transition-opacity duration-700">
+<span class="material-symbols-outlined text-[160px] text-tertiary" data-icon="lock" style="font-variation-settings: 'FILL' 1;">lock</span>
+</div>
+</div>
+</div>
+<!-- Premium Card 2 -->
+<div class="relative group rounded-2xl p-[1px] bg-gradient-to-br from-tertiary/40 via-surface-container-highest to-surface-container-lowest">
+<div class="bg-surface-container-lowest rounded-[calc(1.5rem-1px)] p-6 flex items-center justify-between overflow-hidden relative">
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-2">
+<span class="text-[10px] font-black bg-tertiary text-on-tertiary-fixed px-2 py-0.5 rounded tracking-[0.2em]">SCULPT</span>
+<span class="text-xs font-bold text-on-surface-variant uppercase tracking-widest">12 Sessions</span>
+</div>
+<h3 class="font-headline text-2xl font-bold text-white mb-2">Aesthetic Architecture</h3>
+<div class="flex items-center gap-4 text-on-surface-variant">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm" data-icon="timer">timer</span>
+<span class="text-xs font-bold uppercase tracking-wider">45 Mins</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm" data-icon="trending_up">trending_up</span>
+<span class="text-xs font-bold uppercase tracking-wider">Precision Focus</span>
+</div>
+</div>
+</div>
+<div class="absolute -right-4 -bottom-10 opacity-20 group-hover:opacity-40 transition-opacity duration-700">
+<span class="material-symbols-outlined text-[160px] text-tertiary" data-icon="lock" style="font-variation-settings: 'FILL' 1;">lock</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Unlock CTA -->
+<div class="mt-10 p-8 rounded-[2rem] bg-gradient-to-br from-tertiary via-tertiary-dim to-tertiary-container text-on-tertiary-fixed-variant text-center relative overflow-hidden shadow-[0_10px_40px_rgba(255,221,121,0.15)]">
+<div class="relative z-10">
+<h3 class="font-headline text-3xl font-black italic tracking-tighter uppercase mb-2">Break Your Limits</h3>
+<p class="font-bold text-sm mb-6 uppercase tracking-wider opacity-80">Access 50+ elite programs &amp; world-class coaching</p>
+<button class="bg-on-tertiary-fixed text-tertiary px-10 py-4 rounded-full font-black text-sm uppercase tracking-[0.2em] shadow-xl active:scale-95 transition-transform">Unlock Premium</button>
+</div>
+<!-- Decorative element -->
+<div class="absolute top-0 right-0 translate-x-1/4 -translate-y-1/4">
+<span class="material-symbols-outlined text-[120px] text-white/20" data-icon="workspace_premium" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-[2rem] bg-[#0e0e0e]/80 backdrop-blur-xl border-t border-white/5 shadow-[0_-10px_40px_rgba(202,253,0,0.08)]">
+<div class="flex justify-around items-center h-20 px-4 pb-2">
+<!-- Home -->
+<a class="flex flex-col items-center justify-center text-gray-600 transition-all duration-300 hover:text-[#f3ffca]/80 active:scale-90" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="home_max">home_max</span>
+<span class="font-manrope text-[10px] font-bold uppercase tracking-widest">HOME</span>
+</a>
+<!-- Workouts (ACTIVE) -->
+<a class="flex flex-col items-center justify-center text-[#f3ffca] transition-all duration-300 scale-110 active:scale-90" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="fitness_center" style="font-variation-settings: 'FILL' 1;">fitness_center</span>
+<span class="font-manrope text-[10px] font-bold uppercase tracking-widest">WORKOUTS</span>
+</a>
+<!-- Hub -->
+<a class="flex flex-col items-center justify-center text-gray-600 transition-all duration-300 hover:text-[#f3ffca]/80 active:scale-90" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="workspace_premium">workspace_premium</span>
+<span class="font-manrope text-[10px] font-bold uppercase tracking-widest">HUB</span>
+</a>
+<!-- Profile -->
+<a class="flex flex-col items-center justify-center text-gray-600 transition-all duration-300 hover:text-[#f3ffca]/80 active:scale-90" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span class="font-manrope text-[10px] font-bold uppercase tracking-widest">PROFILE</span>
+</a>
+</div>
+</nav>
+</body></html>

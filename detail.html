@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KINETIC | Incline Dumbbell Press</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;family=Manrope:wght@200..800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#fcf9f8",
+                    "on-tertiary": "#624e00",
+                    "surface-container-low": "#131313",
+                    "on-error": "#450900",
+                    "on-tertiary-fixed-variant": "#634e00",
+                    "on-tertiary-container": "#584500",
+                    "surface-tint": "#f3ffca",
+                    "outline-variant": "#484848",
+                    "inverse-on-surface": "#565555",
+                    "secondary": "#e5e2e1",
+                    "on-secondary": "#525151",
+                    "primary-fixed": "#cafd00",
+                    "surface-container-high": "#1f2020",
+                    "error": "#ff7351",
+                    "on-secondary-fixed-variant": "#5c5b5b",
+                    "on-primary-container": "#4a5e00",
+                    "surface-container-lowest": "#000000",
+                    "background": "#0e0e0e",
+                    "surface": "#0e0e0e",
+                    "on-secondary-container": "#d2d0cf",
+                    "surface-bright": "#2c2c2c",
+                    "primary-dim": "#beee00",
+                    "tertiary-dim": "#e6c047",
+                    "secondary-fixed-dim": "#d7d4d3",
+                    "inverse-primary": "#516700",
+                    "surface-variant": "#262626",
+                    "primary-container": "#cafd00",
+                    "on-surface": "#ffffff",
+                    "tertiary-fixed-dim": "#e6c047",
+                    "primary": "#f3ffca",
+                    "secondary-container": "#474646",
+                    "on-tertiary-fixed": "#413200",
+                    "error-container": "#b92902",
+                    "surface-container": "#191a1a",
+                    "tertiary-fixed": "#f5ce53",
+                    "tertiary": "#ffdd79",
+                    "outline": "#767575",
+                    "on-primary-fixed": "#3a4a00",
+                    "primary-fixed-dim": "#beee00",
+                    "on-surface-variant": "#adaaaa",
+                    "error-dim": "#d53d18",
+                    "secondary-fixed": "#e5e2e1",
+                    "secondary-dim": "#d7d4d3",
+                    "on-secondary-fixed": "#403f3f",
+                    "on-primary-fixed-variant": "#526900",
+                    "on-background": "#ffffff",
+                    "surface-dim": "#0e0e0e",
+                    "on-error-container": "#ffd2c8",
+                    "on-primary": "#516700",
+                    "surface-container-highest": "#262626",
+                    "tertiary-container": "#f5ce53"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Lexend"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(38, 38, 38, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body selection:bg-primary selection:text-on-primary">
+<!-- TopAppBar Shell -->
+<header class="fixed top-0 w-full z-50 flex items-center justify-between px-6 h-20 bg-[#0e0e0e] dark:bg-black/80 backdrop-blur-xl transition-colors bg-gradient-to-b from-black to-transparent shadow-[0_4px_30px_rgba(204,255,0,0.05)]">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center overflow-hidden border border-outline-variant/20">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="High-contrast athletic profile avatar of a focused individual in dark gym lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJd8RW2gCZZW8JGxJ9fZzzYsLaysTu7huyhSXFnk-ekEljXOEpF6agpaalMVReYDKbtgvghrjRVPsE3vRHf2ckPlqa4vhxPy2FStToYRJQa4uDnMViHpHLHXGfrg2azqX9lGqNn7qYLLV-8oVs2S8mbqibPT43ZTYBC7Bc27KNL7fM4xSV0F3TkSAf-NYkm6EnTIjXhAeP3KZCjxj0MF3dhWjUM6PT-YvJtDksK5GJlFAkjmFoVXB8EBouFPWdoWJQIJNl5pd3AeI"/>
+</div>
+</div>
+<h1 class="font-['Lexend'] font-black uppercase tracking-widest text-[#CCFF00] italic font-black text-2xl">KINETIC</h1>
+<button class="material-symbols-outlined text-[#CCFF00] hover:text-[#CCFF00] transition-all duration-300 scale-95 active:scale-90">
+            notifications
+        </button>
+</header>
+<main class="pt-20 pb-32">
+<!-- Hero Workout Media -->
+<section class="relative w-full aspect-[4/5] md:aspect-video overflow-hidden">
+<img class="w-full h-full object-cover brightness-75" data-alt="Cinematic close-up of a bodybuilder performing incline dumbbell press in a moody, dark obsidian-themed luxury gym with neon lime accents" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDD13YXbmZG1QObLhhQc0wC3Zqn3RXfjmrFD0YSryHx9sx7D4LdKqXmKQ7oWofs698JOeDfxA9hrp7X_Hfn5wLgitwDQHlFb4fmb8u-i9AEc6OxxdPT4kHQ1EeO7hNODp2RNNVJLL-dZGGwcH22gXinpUEnOXYf8CXYe5aX0FRMr9AII9ZbAu11rCGQZryExZMZThk8WeWNTI3nR_91qHkU8npo5bYb7G7seDm9tcI4tvh0u7SWfUOnmyJAzkk0jiUWfWb5yWwbAiM"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+<!-- Play Overlay -->
+<div class="absolute inset-0 flex items-center justify-center">
+<button class="w-20 h-20 rounded-full glass-panel flex items-center justify-center border border-white/10 group scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-primary text-5xl" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+<!-- Stats Overlay (Glassmorphism) -->
+<div class="absolute bottom-8 left-6 right-6 flex justify-between items-end">
+<div class="flex flex-col">
+<span class="font-headline font-black text-4xl md:text-6xl text-on-surface uppercase tracking-tighter leading-none">Incline<br/>Dumbbell Press</span>
+<span class="text-on-surface-variant font-label text-sm mt-2 tracking-widest uppercase">Target: Upper Pectorals</span>
+</div>
+</div>
+</section>
+<!-- Metrics Bento Grid -->
+<section class="px-6 -mt-10 relative z-10 grid grid-cols-3 gap-3">
+<div class="bg-surface-container-high p-5 rounded-xl flex flex-col items-center justify-center border-b-2 border-primary/20">
+<span class="text-on-surface-variant font-label text-[10px] uppercase tracking-widest mb-1">Sets</span>
+<span class="font-headline font-black text-3xl text-primary">04</span>
+</div>
+<div class="bg-surface-container-high p-5 rounded-xl flex flex-col items-center justify-center border-b-2 border-primary/20">
+<span class="text-on-surface-variant font-label text-[10px] uppercase tracking-widest mb-1">Reps</span>
+<span class="font-headline font-black text-3xl text-primary">12</span>
+</div>
+<div class="bg-surface-container-high p-5 rounded-xl flex flex-col items-center justify-center border-b-2 border-primary/20">
+<span class="text-on-surface-variant font-label text-[10px] uppercase tracking-widest mb-1">Rest</span>
+<span class="font-headline font-black text-3xl text-primary">60<span class="text-sm">s</span></span>
+</div>
+</section>
+<!-- Instructions Section -->
+<section class="mt-12 px-6">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline font-bold text-xl uppercase tracking-tight">Detailed Instructions</h3>
+<span class="h-[2px] flex-grow ml-4 bg-outline-variant/30"></span>
+</div>
+<div class="space-y-8">
+<div class="flex gap-6">
+<span class="font-headline font-black text-4xl text-surface-container-highest leading-none">01</span>
+<div>
+<h4 class="font-bold text-on-surface text-lg mb-2">Set the Foundation</h4>
+<p class="text-on-surface-variant leading-relaxed font-body">Adjust the bench to a 30-45 degree incline. Sit with your back firmly against the pad and feet planted wide for maximum stability.</p>
+</div>
+</div>
+<div class="flex gap-6">
+<span class="font-headline font-black text-4xl text-surface-container-highest leading-none">02</span>
+<div>
+<h4 class="font-bold text-on-surface text-lg mb-2">The Drive Phase</h4>
+<p class="text-on-surface-variant leading-relaxed font-body">Press the weights upward in a controlled arc, converging them slightly at the top without touching. Keep your shoulders retracted.</p>
+</div>
+</div>
+<div class="flex gap-6">
+<span class="font-headline font-black text-4xl text-surface-container-highest leading-none">03</span>
+<div>
+<h4 class="font-bold text-on-surface text-lg mb-2">Controlled Eccentric</h4>
+<p class="text-on-surface-variant leading-relaxed font-body">Lower the dumbbells slowly until they are level with your chest, feeling a deep stretch in the upper pectorals. Maintain tension throughout.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Trainer's Notes Card -->
+<section class="mt-12 px-6">
+<div class="relative bg-surface-container-low rounded-[32px] p-8 overflow-hidden">
+<!-- Decorative background elements -->
+<div class="absolute -right-4 -top-4 w-32 h-32 bg-tertiary/10 rounded-full blur-3xl"></div>
+<div class="relative z-10">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-tertiary">format_quote</span>
+<span class="font-headline font-black text-xs uppercase tracking-[0.2em] text-tertiary">Trainer's Elite Insight</span>
+</div>
+<p class="text-on-surface italic text-lg leading-relaxed font-medium">
+                        "Focus on the stretch at the bottom of the movement. That's where the muscle fiber recruitment happens for that upper-chest shelf. Don't ego lift—control is king."
+                    </p>
+<div class="mt-6 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-tertiary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary text-sm" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<span class="text-on-tertiary-container font-label text-xs font-bold tracking-widest uppercase">Coach Marcus / Elite S&amp;C</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Action -->
+<div class="fixed bottom-24 left-0 w-full px-6 z-40 pointer-events-none">
+<button class="pointer-events-auto w-full bg-gradient-to-r from-primary-container to-primary text-on-primary-fixed font-headline font-black py-5 rounded-full uppercase tracking-[0.2em] shadow-[0_10px_40px_rgba(202,253,0,0.3)] scale-100 active:scale-95 transition-transform flex items-center justify-center gap-3">
+            START SET
+            <span class="material-symbols-outlined font-normal">bolt</span>
+</button>
+</div>
+<!-- BottomNavBar Shell -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-4 pb-8 bg-[#131313] dark:bg-[#0e0e0e]/95 backdrop-blur-2xl rounded-t-[32px] no-border shadow-[0_-10px_40px_rgba(0,0,0,0.8)]">
+<a class="flex flex-col items-center justify-center text-neutral-500 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-['Manrope'] text-[10px] font-bold uppercase tracking-tighter mt-1">HOME</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#CCFF00] bg-[#CCFF00]/10 rounded-full px-4 py-1" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">fitness_center</span>
+<span class="font-['Manrope'] text-[10px] font-bold uppercase tracking-tighter mt-1">WORKOUTS</span>
+</a>
+<a class="flex flex-col items-center justify-center text-neutral-500 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="font-['Manrope'] text-[10px] font-bold uppercase tracking-tighter mt-1">HUB</span>
+</a>
+<a class="flex flex-col items-center justify-center text-neutral-500 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-['Manrope'] text-[10px] font-bold uppercase tracking-tighter mt-1">PROFILE</span>
+</a>
+</nav>
+</body></html>
