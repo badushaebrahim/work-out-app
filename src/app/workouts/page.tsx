@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 import Workout from '@/models/Workout';
 import Link from 'next/link';
+import { cookies } from 'next/headers';
+import { verifyJwt } from '@/lib/jwt';
 
 // Force dynamic fetch to ensure new workouts show up
 export const dynamic = 'force-dynamic';
@@ -12,6 +14,19 @@ export default async function WorkoutsLibrary({
 }) {
   const { focus } = await searchParams;
   const currentFocus = focus || 'All';
+
+  // Check User Premium Status
+  let isPremium = false;
+  try {
+    const cookieStore = await cookies();
+    const token = cookieStore.get('authToken')?.value;
+    if (token) {
+      const payload = await verifyJwt(token);
+      if (payload && (payload.role === 'premium' || payload.role === 'admin')) {
+        isPremium = true;
+      }
+    }
+  } catch (e) {}
 
   // Connect to DB wrapper
   if (mongoose.connection.readyState !== 1 && process.env.MONGODB_URI) {
@@ -118,7 +133,7 @@ export default async function WorkoutsLibrary({
 
         <div className="space-y-6">
           {premiumWorkouts.map((workout: any) => (
-            <Link href={`/workouts/${workout._id}`} key={workout._id.toString()} className="block relative group rounded-2xl p-[1px] bg-gradient-to-br from-tertiary/40 via-surface-container-highest to-surface-container-lowest">
+            <Link href={isPremium ? `/workouts/${workout._id}` : `/upgrade`} key={workout._id.toString()} className="block relative group rounded-2xl p-[1px] bg-gradient-to-br from-tertiary/40 via-surface-container-highest to-surface-container-lowest">
               <div className="bg-surface-container-lowest rounded-[calc(1.5rem-1px)] p-6 flex items-center justify-between overflow-hidden relative">
                 <div className="relative z-10 w-full flex justify-between items-center">
                   <div>
@@ -139,8 +154,9 @@ export default async function WorkoutsLibrary({
                     </div>
                   </div>
                   <div>
-                    {/* Lock icon */}
-                    <span className="material-symbols-outlined text-[60px] text-tertiary md:text-[80px]" style={{ fontVariationSettings: "'FILL' 1" }}>lock</span>
+                    {/* Conditionally rendering lock icon */}
+                    {!isPremium && <span className="material-symbols-outlined text-[60px] text-tertiary md:text-[80px]" style={{ fontVariationSettings: "'FILL' 1" }}>lock</span>}
+                    {isPremium && <span className="material-symbols-outlined text-[40px] text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>arrow_forward</span>}
                   </div>
                 </div>
               </div>
@@ -148,17 +164,19 @@ export default async function WorkoutsLibrary({
           ))}
         </div>
 
-        {/* Unlock CTA */}
+        {/* Unlock CTA conditionally rendered */}
+        {!isPremium && (
         <div className="mt-10 p-8 rounded-[2rem] bg-gradient-to-br from-tertiary via-tertiary-dim to-tertiary-container text-on-tertiary-fixed-variant text-center relative overflow-hidden shadow-[0_10px_40px_rgba(255,221,121,0.15)]">
           <div className="relative z-10">
             <h3 className="font-headline text-3xl font-black italic tracking-tighter uppercase mb-2">Break Your Limits</h3>
             <p className="font-bold text-sm mb-6 uppercase tracking-wider opacity-80">Access elite programs &amp; world-class coaching</p>
-            <button className="bg-on-tertiary-fixed text-tertiary px-10 py-4 rounded-full font-black text-sm uppercase tracking-[0.2em] shadow-xl active:scale-95 transition-transform">Unlock Premium</button>
+            <Link href="/upgrade" className="inline-block bg-on-tertiary-fixed text-tertiary px-10 py-4 rounded-full font-black text-sm uppercase tracking-[0.2em] shadow-xl active:scale-95 transition-transform">Unlock Premium</Link>
           </div>
           <div className="absolute top-0 right-0 translate-x-1/4 -translate-y-1/4 pointer-events-none">
             <span className="material-symbols-outlined text-[120px] text-white/20" style={{ fontVariationSettings: "'FILL' 1" }}>workspace_premium</span>
           </div>
         </div>
+        )}
       </section>
     </main>
   );

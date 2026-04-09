@@ -1,5 +1,5 @@
 import TrialTracker from '@/components/TrialTracker';
-
+import CountdownClock from '@/components/CountdownClock';
 export default function Dashboard() {
   return (
     <main className="pt-20 px-6 space-y-8">
@@ -41,22 +41,7 @@ export default function Dashboard() {
         <h3 className="font-label text-[10px] text-on-surface-variant font-extrabold tracking-[0.4em] uppercase mb-4">
           Workout Refresh In
         </h3>
-        <div className="flex items-center gap-4">
-          <div className="flex flex-col items-center">
-            <span className="font-headline text-6xl font-black text-primary text-glow-primary">14</span>
-            <span className="font-label text-[8px] text-on-surface-variant font-bold tracking-widest uppercase mt-1">HRS</span>
-          </div>
-          <span className="font-headline text-4xl font-black text-outline-variant">:</span>
-          <div className="flex flex-col items-center">
-            <span className="font-headline text-6xl font-black text-primary text-glow-primary">28</span>
-            <span className="font-label text-[8px] text-on-surface-variant font-bold tracking-widest uppercase mt-1">MIN</span>
-          </div>
-          <span className="font-headline text-4xl font-black text-outline-variant">:</span>
-          <div className="flex flex-col items-center">
-            <span className="font-headline text-6xl font-black text-primary text-glow-primary">09</span>
-            <span className="font-label text-[8px] text-on-surface-variant font-bold tracking-widest uppercase mt-1">SEC</span>
-          </div>
-        </div>
+        <CountdownClock />
       </section>
 
       {/* Today's Recommended Workout */}
@@ -196,11 +181,11 @@ export default function Dashboard() {
       </section>
 
       {/* Contextual FAB */}
-      <button className="fixed right-6 bottom-24 bg-primary text-on-primary w-14 h-14 rounded-full shadow-[0_10px_30px_rgba(202,253,0,0.4)] flex items-center justify-center active:scale-90 transition-transform z-40">
+      {/* <button className="fixed right-6 bottom-24 bg-primary text-on-primary w-14 h-14 rounded-full shadow-[0_10px_30px_rgba(202,253,0,0.4)] flex items-center justify-center active:scale-90 transition-transform z-40">
         <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>
           add
         </span>
-      </button>
+      </button> */}
     </main>
   );
 }
