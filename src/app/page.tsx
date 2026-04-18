@@ -5,7 +5,7 @@ export default function Dashboard() {
     <main className="pt-20 px-6 space-y-8">
       <TrialTracker />
       {/* Premium Admin Banner */}
-      <section className="relative w-full h-[420px] rounded-full overflow-hidden flex items-end p-8 group">
+      {/* <section className="relative w-full h-[420px] rounded-full overflow-hidden flex items-end p-8 group">
         <img
           className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
           alt="dramatic wide shot of a high-end luxury gym interior with dark obsidian walls and neon accent lighting"
@@ -34,7 +34,7 @@ export default function Dashboard() {
             Reserve Now
           </button>
         </div>
-      </section>
+      </section> */}
 
       {/* Workout Refresh Countdown */}
       <section className="flex flex-col items-center py-6">
