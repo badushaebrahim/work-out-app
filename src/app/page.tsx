@@ -28,7 +28,7 @@ export default function Dashboard() {
             THE MIDNIGHT<br />PULSE SESSION
           </h1>
           <p className="text-on-surface-variant font-body text-sm max-w-xs">
-            Join the world's most exclusive HIIT event this Friday. Limited slots available for Kinetic Elite members.
+            Join the world's most exclusive HIIT event this Friday. Limited slots available for Buddy Elite members.
           </p>
           <button className="bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold px-8 py-3 rounded-full uppercase tracking-widest text-xs active:scale-90 transition-transform shadow-[0_0_40px_rgba(202,253,0,0.2)]">
             Reserve Now
@@ -44,77 +44,43 @@ export default function Dashboard() {
         <CountdownClock />
       </section>
 
-      {/* Today's Recommended Workout */}
+      {/* Target Zones Section */}
       <section className="space-y-4">
         <div className="flex justify-between items-end">
           <div>
-            <h2 className="font-headline text-2xl font-black tracking-tighter uppercase">Daily Recommendation</h2>
-            <p className="text-on-surface-variant font-body text-xs">Based on your recent recovery data.</p>
+            <h2 className="font-headline text-2xl font-black tracking-tighter uppercase text-white">Target Zones</h2>
+            <p className="text-on-surface-variant font-body text-xs">Body part specific sessions</p>
           </div>
-          <span className="text-primary font-label text-[10px] font-bold tracking-widest uppercase border-b-2 border-primary pb-1">
-            View Plan
-          </span>
+          <a href="/workouts?focus=All" className="text-primary font-label text-[10px] font-bold tracking-widest uppercase border-b-2 border-primary pb-1">
+            See All
+          </a>
         </div>
-        <div className="bg-surface-container-high rounded-[2rem] overflow-hidden p-1 flex flex-col md:flex-row gap-1">
-          <div className="relative h-64 md:h-auto md:w-1/2 rounded-[1.8rem] overflow-hidden">
-            <img
-              className="w-full h-full object-cover"
-              alt="heavy medicine ball on a dark rubber gym floor with cinematic low key lighting and dust particles"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8FxLNxJOn_e7ER2L7ogVzwhJfXIip3odiUUWzpqSLrlQkOkVj0C73ctcjB-sYvMT0Ksji-5_lcvo1yw_LoQdjg6Ej5ktUwfywfa7PCr6AqlU8seTrNdF48QGiAlBXKp5qhyAf8zYfj0SjyiC2l65CQpgjIC1nppX4_nwq9H5RemIQq-z61M6wDVXHc5grClNmI7BKMhUCS7B_LCERhHHK-9djL4iOfRiHmtXLLMiOqLWG0pS4Z5lcbs1pEpOzZ7jW4jBL2kwu_hI"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-surface-container-highest/80 to-transparent"></div>
-            <div className="absolute bottom-6 left-6">
-              <div className="bg-primary/20 backdrop-blur-md px-3 py-1 rounded-full inline-block border border-primary/30 mb-2">
-                <span className="text-primary font-label text-[10px] font-black uppercase tracking-widest">
-                  Advanced
-                </span>
-              </div>
-              <h4 className="font-headline text-xl font-bold text-white uppercase italic tracking-tight">
-                Valkyrie Protocol
-              </h4>
-            </div>
-          </div>
-          <div className="md:w-1/2 p-8 flex flex-col justify-between">
-            <div className="grid grid-cols-2 gap-6">
-              <div>
-                <p className="text-on-surface-variant text-[10px] font-bold tracking-widest uppercase">Duration</p>
-                <p className="font-headline text-2xl font-bold text-white tracking-tighter">
-                  45<span className="text-xs ml-1 text-on-surface-variant">MIN</span>
-                </p>
-              </div>
-              <div>
-                <p className="text-on-surface-variant text-[10px] font-bold tracking-widest uppercase">Target</p>
-                <p className="font-headline text-2xl font-bold text-white tracking-tighter">
-                  CO<span className="text-xs ml-1 text-on-surface-variant">RE</span>
-                </p>
-              </div>
-              <div>
-                <p className="text-on-surface-variant text-[10px] font-bold tracking-widest uppercase">Est. Burn</p>
-                <p className="font-headline text-2xl font-bold text-primary tracking-tighter">
-                  620<span className="text-xs ml-1 text-on-surface-variant">KCAL</span>
-                </p>
-              </div>
-              <div>
-                <p className="text-on-surface-variant text-[10px] font-bold tracking-widest uppercase">Intensity</p>
-                <div className="flex gap-1 mt-2">
-                  <div className="w-4 h-1 bg-primary rounded-full"></div>
-                  <div className="w-4 h-1 bg-primary rounded-full"></div>
-                  <div className="w-4 h-1 bg-primary rounded-full"></div>
-                  <div className="w-4 h-1 bg-outline-variant rounded-full"></div>
+        <div className="grid grid-cols-2 gap-4">
+          {[
+            { title: 'BICEPS', href: '/workouts?focus=BICEPS', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCqqMtxEoBlL4_jSyYgeXoX4MB4saGLieRIhaJqDS8RyNKdHNAdaQYn8EDcGC_f3PLbeg94Y5zDGesu3mcJX6g0b6by9yk24VhyFg8otOoxgbkZzlCM_hnHUsTwSiCbxuJMQnH3w9jo75batkTOPwGjS2HT827l4XaOKdzqHmIi3YEBFDc9yYjcYq77lgYmkwP22ifu1I92cNOF_ydKdfagwmKyfu2-3_g7lwQGXkpGIi275p3NXVhem-CtxSNGs8ji8HXi5sSL8EE' },
+            { title: 'TRICEPS', href: '/workouts?focus=TRICEPS', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBptWb0A3VLl5S2YfklQvYQSgxx0OLtpkooX1VqXMuzU3in38ZIBQDgvJwy3oQTP_ZOywVWX7oJg4kM60S02lPSbgwvuyXP69y26XzfjEShYb0wWRoGYHbSxZEJDIeKBOlTqQjOzlXXMd7JH7s3naFi8T4vbBUkfcuONTlMzFXMAGNSLQls7Ny0puSr53bGmKPT3LsljKDgdgHjdyqlUI1fagO78rddJKjdoAOScgABIAhujMt5N78x_HxUg3TbmMmvuN0fIbhIwrE' },
+            { title: 'BACK', href: '/workouts?focus=BACK', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD7qYm3FfSxS-uVwVjpM4ifIhX3x7RrVk8lC8BtoM3pDR_JQs6bk7hqM0K9WTMQlSXx12bXn4ydtJXiHuPOkZTLcUkDE_POTrVExE7amKJDdxp_dM8AG7tPy_kv8Kilz6x-5AYtYZXx5crUymVNqzt0OX6t9lmdhnhtmsO04Rx-MqQstKln-EVtLpmSvb3LInhhwzTKIWn-d9KwGJUj3orsoKVx3R6wC8mThrs06n6FLgF7WAEFOwVmputNg7EzfVmSsZegUmiF0xA' },
+            { title: 'LEGS', href: '/workouts?focus=LEGS', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDakohgWd7wPq668mOSEr8maUGhLcbMgIyxY_D29CL-RLUH9VRGKiygMuuBlvulFp6a8IKjBz9jV-pHVVJiotUFs-x3NmDn4zUJm1SE7zhCj0rthQfobDwNkE7N-H69jZhiqF8ssRrH__maiVMJzJWFnYUH2GsREhJiQscgc1xezNkN71GCuobPnhCR5o6LwiY0YqB07CDDZVGeUBWC38adUWM01cQYYzPXWbny_8W4wYDQUviWuxOSiIaGWie0gkIAzicuDGkOi1w' },
+            { title: 'SHOULDERS', href: '/workouts?focus=SHOULDERS', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCnENpLzI_BqwDq_sVSlppsUSwHQyHLV1vYgVvpTfALEUffkkQMUZppECjD1Mm8gKAjoBUwLUXXNwxIZ3d52GRUzIfhUH2kcw5cUDBAb6kQ689D2CtqgBNs6muLhbnqaujoxUHxd6sZntQoOcTZpkNpKaF1yvGKEGYR8OLV29SFy67_xB3CTBJ1o6ft9x3zoK0mfwgZc3OuDGh-Fbfj--aVomdi3PKhdes0DfDlf6yyEH-bCpzP10dTZJ2wI3IplH2UIS2stQA0Rms' },
+            { title: 'MIX', href: '/workouts?focus=MIX', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC9vf5Na2jl4Bj81uUSwe9FXyb0GJM31np6p6zud7H99_GTFBHXbEWphwsYQIrkHyVVGEOruTzQU-sUOQSpUgDOm8TZcFenTdjjebtoqG8czP4DoBPcIxP_DwB83xtP2AHez1ZGxN7gWoyOcORhD043eRbgBwXeoJkxpWBKpMj2YntYvqutQAJpgkb_3rx2mWIopUOWTUc4ts-tt4n1rp3zt2iTLNfHdVfb1tWFMj24PkMuRzBtjznhTM3LX4t0o8QGwrgYas4L9mw' },
+          ].map((tile) => (
+            <a key={tile.title} href={tile.href} className="bg-surface-container rounded-3xl overflow-hidden flex flex-col active:scale-[0.98] transition-transform">
+              <div className="relative aspect-square">
+                <img alt={`${tile.title} workout`} className="w-full h-full object-cover" src={tile.img} />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent"></div>
+                <div className="absolute bottom-3 left-3">
+                  <h4 className="font-headline text-sm font-black uppercase italic text-white">{tile.title}</h4>
                 </div>
               </div>
-            </div>
-            <button className="w-full mt-8 bg-surface-bright text-white font-bold py-4 rounded-full uppercase tracking-[0.2em] text-[10px] border border-white/5 active:scale-95 transition-transform">
-              Start Training Session
-            </button>
-          </div>
+            </a>
+          ))}
         </div>
       </section>
 
       {/* Fitness News Horizontal Scroll */}
       <section className="space-y-4 pb-12">
         <div className="flex justify-between items-center">
-          <h2 className="font-headline text-xl font-black tracking-tighter uppercase">Kinetic Feed</h2>
+          <h2 className="font-headline text-xl font-black tracking-tighter uppercase">Buddy Feed</h2>
           <span className="material-symbols-outlined text-on-surface-variant">arrow_forward</span>
         </div>
         <div className="flex overflow-x-auto gap-4 no-scrollbar -mx-6 px-6">

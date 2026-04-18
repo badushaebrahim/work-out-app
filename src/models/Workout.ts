@@ -1,5 +1,15 @@
 import mongoose, { Schema, Document, Model } from 'mongoose';
 
+export interface IExercise {
+  name: string;
+  type: string;
+  sets: number;
+  reps: string;
+  rest: string;
+  executionSteps: string[];
+  trainerInsight: string;
+}
+
 export interface IWorkout extends Document {
   title: string;
   description: string;
@@ -7,9 +17,20 @@ export interface IWorkout extends Document {
   mediaType?: 'image' | 'video' | 'gif';
   tier: 'basic' | 'premium';
   categories: string[];
+  exercises?: IExercise[];
   createdAt: Date;
   updatedAt: Date;
 }
+
+const ExerciseSchema = new Schema<IExercise>({
+  name: { type: String, required: true },
+  type: { type: String, required: true },
+  sets: { type: Number, required: true },
+  reps: { type: String, required: true },
+  rest: { type: String, required: true },
+  executionSteps: [{ type: String }],
+  trainerInsight: { type: String },
+});
 
 const WorkoutSchema: Schema<IWorkout> = new Schema(
   {
@@ -36,6 +57,10 @@ const WorkoutSchema: Schema<IWorkout> = new Schema(
     },
     categories: {
       type: [String],
+      default: [],
+    },
+    exercises: {
+      type: [ExerciseSchema],
       default: [],
     },
   },

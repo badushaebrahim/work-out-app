@@ -15,7 +15,7 @@ export default function UpgradePage() {
           <div className="bg-gradient-to-br from-tertiary/20 via-surface-container-low to-surface-container-low p-8 text-center border-b border-white/5">
             <span className="material-symbols-outlined text-[60px] text-tertiary mb-4" style={{ fontVariationSettings: "'FILL' 1" }}>bolt</span>
             <h1 className="font-headline font-black text-4xl uppercase tracking-tighter text-white mb-2 italic">Upgrade Required</h1>
-            <p className="text-on-surface-variant font-medium text-sm">You've hit the limit. Only Kinetic Elite members can proceed past this point.</p>
+            <p className="text-on-surface-variant font-medium text-sm">You've hit the limit. Only Buddy Elite members can proceed past this point.</p>
           </div>
 
           <div className="p-8 space-y-8">

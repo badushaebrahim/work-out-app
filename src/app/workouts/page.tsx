@@ -1,10 +1,8 @@
 import mongoose from 'mongoose';
 import Workout from '@/models/Workout';
 import Link from 'next/link';
-import { cookies } from 'next/headers';
-import { verifyJwt } from '@/lib/jwt';
 
-// Force dynamic fetch to ensure new workouts show up
+// Force dynamic fetch
 export const dynamic = 'force-dynamic';
 
 export default async function WorkoutsLibrary({
@@ -15,25 +13,12 @@ export default async function WorkoutsLibrary({
   const { focus } = await searchParams;
   const currentFocus = focus || 'All';
 
-  // Check User Premium Status
-  let isPremium = false;
-  try {
-    const cookieStore = await cookies();
-    const token = cookieStore.get('authToken')?.value;
-    if (token) {
-      const payload = await verifyJwt(token);
-      if (payload && (payload.role === 'premium' || payload.role === 'admin')) {
-        isPremium = true;
-      }
-    }
-  } catch (e) {}
-
   // Connect to DB wrapper
   if (mongoose.connection.readyState !== 1 && process.env.MONGODB_URI) {
     await mongoose.connect(process.env.MONGODB_URI);
   }
 
-  // Fetch dummy workouts
+  // Fetch workouts to display
   let docs: any[] = [];
   try {
     docs = await Workout.find().lean() || [];
@@ -41,143 +26,58 @@ export default async function WorkoutsLibrary({
     console.error("DB Error", e);
   }
 
-  const allBasicWorkouts = docs.filter(w => w.tier === 'basic' || !w.tier);
-  const premiumWorkouts = docs.filter(w => w.tier === 'premium');
+  const filteredWorkouts = currentFocus === 'All'
+    ? docs
+    : docs.filter(w => w.categories && w.categories.map((c: string) => c.toUpperCase()).includes(currentFocus.toUpperCase()));
 
-  const basicWorkouts = currentFocus === 'All'
-    ? allBasicWorkouts
-    : allBasicWorkouts.filter(w => w.categories && w.categories.map((c: string) => c.toUpperCase()).includes(currentFocus.toUpperCase()));
+  {/* Workout Directory Headers */ }
+  <section className="space-y-4">
+    <div className="flex justify-between items-end">
+      <Link href="/" className="material-symbols-outlined text-[#f3ffca] active:scale-95 transition-transform text-3xl">arrow_back</Link>
+    </div>
+  </section>
 
-  const filters = [
-    { label: 'All Focus', value: 'All' },
-    { label: 'Chest', value: 'Chest' },
-    { label: 'Back', value: 'Back' },
-    { label: 'Legs', value: 'Legs' },
-    { label: 'Arms', value: 'Arms' },
-    { label: 'Core', value: 'Core' },
-    { label: 'Mix', value: 'Mix' }
-  ];
+  {/* Recommended Workouts based on selection */ }
+  <section className="space-y-6">
+    <div className="flex justify-between items-center border-b border-surface-container-high pb-4">
+      <h2 className="font-headline text-xl font-black tracking-tighter uppercase text-white flex items-center gap-2">
+        <span className="material-symbols-outlined text-primary">bolt</span>
+        {currentFocus} Sessions
+      </h2>
+    </div>
 
-  return (
-    <main className="pt-24 pb-32 px-6 space-y-12">
-      {/* Body Part Selector */}
-      <section className="mb-10 overflow-hidden">
-        <h2 className="font-headline text-xs font-bold uppercase tracking-[0.2em] text-on-surface-variant mb-4">Target Focus</h2>
-        <div className="flex gap-3 overflow-x-auto no-scrollbar pb-2">
-          {filters.map(f => {
-            const isActive = currentFocus === f.value;
-            return (
-              <Link
-                key={f.value}
-                href={`?focus=${f.value}`}
-                className={`px-6 py-3 rounded-full font-bold text-xs uppercase tracking-widest whitespace-nowrap active:scale-95 transition-transform ${isActive
-                    ? 'bg-primary-container text-on-primary-container'
-                    : 'bg-surface-container-high text-on-surface-variant'
-                  }`}
-              >
-                {f.label}
-              </Link>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* Basic Workout Plans */}
-      <section className="mb-12">
-        <div className="flex justify-between items-end mb-6">
-          <div>
-            <h2 className="font-headline text-3xl font-extrabold uppercase italic tracking-tighter text-white">Basic Plans</h2>
-            <p className="text-on-surface-variant text-sm font-medium">Foundation series for elite performance</p>
-          </div>
-        </div>
-
-        {basicWorkouts.length === 0 && (
-          <p className="text-outline my-8 text-sm italic">No basic workouts explicitly set for this focus yet.</p>
-        )}
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {basicWorkouts.map((workout: any) => (
-            <Link href={`/workouts/${workout._id}`} key={workout._id.toString()} className="group relative rounded-xl overflow-hidden bg-surface-container-low active:scale-[0.98] transition-all block">
-              <div className="h-48 w-full overflow-hidden relative">
-                <img className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt={workout.title} src={workout.mediaUrl || "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=800"} />
-                <div className="absolute inset-0 bg-gradient-to-t from-surface-container-low via-transparent to-transparent"></div>
-                <div className="absolute top-4 right-4 glass-card px-3 py-1 rounded-full flex items-center gap-1">
-                  <span className="material-symbols-outlined text-[14px] text-primary">bolt</span>
-                  <span className="text-[10px] font-bold text-white uppercase tracking-widest">Intermediate</span>
+    {filteredWorkouts.length === 0 ? (
+      <div className="bg-surface-container-low p-8 rounded-2xl text-center border border-white/5">
+        <p className="text-on-surface-variant text-sm font-medium">No active sessions found for this zone.</p>
+      </div>
+    ) : (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {filteredWorkouts.map((workout: any) => (
+          <Link href={`/workouts/${workout._id}`} key={workout._id.toString()} className="bg-surface-container-low rounded-2xl p-4 flex gap-4 items-center group active:scale-[0.98] transition-transform border border-transparent hover:border-primary/20">
+            <div className="w-20 h-20 rounded-xl overflow-hidden shrink-0 relative">
+              <img src={workout.mediaUrl || 'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=500'} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-1">
+                {workout.tier === 'premium' && <span className="text-[8px] font-black uppercase tracking-widest bg-tertiary text-on-tertiary-fixed px-1.5 py-0.5 rounded">ELITE</span>}
+                <span className="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest">{workout.categories?.[0] || 'MIX'}</span>
+              </div>
+              <h3 className="font-headline font-bold text-white uppercase truncate">{workout.title}</h3>
+              <div className="flex items-center gap-3 mt-2">
+                <div className="flex items-center gap-1 text-on-surface-variant">
+                  <span className="material-symbols-outlined text-[12px]">schedule</span>
+                  <span className="text-[10px] uppercase font-bold tracking-wider">45m</span>
                 </div>
               </div>
-              <div className="p-6">
-                <h3 className="font-headline text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors">{workout.title}</h3>
-                <div className="flex items-center gap-4 text-on-surface-variant">
-                  <div className="flex items-center gap-1.5">
-                    <span className="material-symbols-outlined text-sm">schedule</span>
-                    <span className="text-xs font-bold uppercase tracking-wider">45 Mins</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="material-symbols-outlined text-sm">fitness_center</span>
-                    <span className="text-xs font-bold uppercase tracking-wider">{workout.categories?.[0] || 'Full Body'}</span>
-                  </div>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* Premium Section */}
-      <section className="mt-20">
-        <div className="flex items-center gap-4 mb-8">
-          <span className="material-symbols-outlined text-tertiary" style={{ fontVariationSettings: "'FILL' 1" }}>workspace_premium</span>
-          <h2 className="font-headline text-3xl font-extrabold uppercase italic tracking-tighter text-tertiary">Premium Series</h2>
-        </div>
-
-        <div className="space-y-6">
-          {premiumWorkouts.map((workout: any) => (
-            <Link href={isPremium ? `/workouts/${workout._id}` : `/upgrade`} key={workout._id.toString()} className="block relative group rounded-2xl p-[1px] bg-gradient-to-br from-tertiary/40 via-surface-container-highest to-surface-container-lowest">
-              <div className="bg-surface-container-lowest rounded-[calc(1.5rem-1px)] p-6 flex items-center justify-between overflow-hidden relative">
-                <div className="relative z-10 w-full flex justify-between items-center">
-                  <div>
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="text-[10px] font-black bg-tertiary text-on-tertiary-fixed px-2 py-0.5 rounded tracking-[0.2em]">ELITE</span>
-                      <span className="text-xs font-bold text-on-surface-variant uppercase tracking-widest">Premium Only</span>
-                    </div>
-                    <h3 className="font-headline text-2xl font-bold text-white mb-2">{workout.title}</h3>
-                    <div className="flex items-center gap-4 text-on-surface-variant">
-                      <div className="flex items-center gap-1.5">
-                        <span className="material-symbols-outlined text-sm">timer</span>
-                        <span className="text-xs font-bold uppercase tracking-wider">60-90 Mins</span>
-                      </div>
-                      <div className="flex items-center gap-1.5">
-                        <span className="material-symbols-outlined text-sm">trending_up</span>
-                        <span className="text-xs font-bold uppercase tracking-wider">{workout.categories?.[0] || 'Max Intensity'}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    {/* Conditionally rendering lock icon */}
-                    {!isPremium && <span className="material-symbols-outlined text-[60px] text-tertiary md:text-[80px]" style={{ fontVariationSettings: "'FILL' 1" }}>lock</span>}
-                    {isPremium && <span className="material-symbols-outlined text-[40px] text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>arrow_forward</span>}
-                  </div>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-
-        {/* Unlock CTA conditionally rendered */}
-        {!isPremium && (
-        <div className="mt-10 p-8 rounded-[2rem] bg-gradient-to-br from-tertiary via-tertiary-dim to-tertiary-container text-on-tertiary-fixed-variant text-center relative overflow-hidden shadow-[0_10px_40px_rgba(255,221,121,0.15)]">
-          <div className="relative z-10">
-            <h3 className="font-headline text-3xl font-black italic tracking-tighter uppercase mb-2">Break Your Limits</h3>
-            <p className="font-bold text-sm mb-6 uppercase tracking-wider opacity-80">Access elite programs &amp; world-class coaching</p>
-            <Link href="/upgrade" className="inline-block bg-on-tertiary-fixed text-tertiary px-10 py-4 rounded-full font-black text-sm uppercase tracking-[0.2em] shadow-xl active:scale-95 transition-transform">Unlock Premium</Link>
-          </div>
-          <div className="absolute top-0 right-0 translate-x-1/4 -translate-y-1/4 pointer-events-none">
-            <span className="material-symbols-outlined text-[120px] text-white/20" style={{ fontVariationSettings: "'FILL' 1" }}>workspace_premium</span>
-          </div>
-        </div>
-        )}
-      </section>
-    </main>
-  );
+            </div>
+            <div className="w-10 h-10 rounded-full bg-surface border border-white/10 flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:border-primary group-hover:text-black transition-colors">
+              <span className="material-symbols-outlined flex">play_arrow</span>
+            </div>
+          </Link>
+        ))}
+      </div>
+    )}
+  </section>
+  // </main >
+  // );
 }

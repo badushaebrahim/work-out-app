@@ -60,6 +60,11 @@ export default async function EditWorkoutPage({ params }: { params: Promise<{ id
         </div>
 
         <div className="space-y-2">
+          <label className="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Exercises (JSON Array)</label>
+          <textarea defaultValue={workout.exercises ? JSON.stringify(workout.exercises, null, 2) : "[\n\n]"} name="exercises" rows={6} className="w-full bg-surface-container-highest border-none rounded-xl py-4 px-4 text-white placeholder:text-outline focus:ring-1 focus:ring-[#CCFF00]/30 outline-none font-mono text-xs" placeholder='[{"name": "Bench Press", "type": "Compound", "sets": 4, "reps": "8-12", "rest": "90s", "executionSteps": ["Step 1"], "trainerInsight": "Note"}]'></textarea>
+        </div>
+
+        <div className="space-y-2">
           <label className="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Current Media URL (Paste new string to change)</label>
           <input defaultValue={workout.mediaUrl} required name="mediaUrl" type="url" className="w-full bg-surface-container-highest border-none rounded-xl py-4 px-4 text-white placeholder:text-outline focus:ring-1 focus:ring-[#CCFF00]/30 outline-none" />
           <div className="mt-2 rounded-xl overflow-hidden relative h-48 border border-white/5 opacity-50 block">

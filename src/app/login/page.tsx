@@ -77,7 +77,7 @@ export default function Login() {
             </span>
           </div>
           <h2 className="font-headline font-black text-4xl lg:text-5xl uppercase tracking-tight text-on-surface mb-2">
-            KINETIC ELITE
+            BUDDY ELITE
           </h2>
           <p className="text-on-surface-variant font-medium">Welcome back, Athlete.</p>
         </header>

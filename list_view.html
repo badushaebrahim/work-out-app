@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Training Vault | Workout Library</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700;800;900&amp;family=Manrope:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#262626",
+                        "on-tertiary-fixed-variant": "#634e00",
+                        "on-primary-fixed-variant": "#526900",
+                        "error-container": "#b92902",
+                        "surface-container-lowest": "#000000",
+                        "on-tertiary-fixed": "#413200",
+                        "tertiary-fixed-dim": "#e6c047",
+                        "on-secondary-fixed": "#403f3f",
+                        "error": "#ff7351",
+                        "on-primary-fixed": "#3a4a00",
+                        "on-secondary-container": "#d2d0cf",
+                        "background": "#0e0e0e",
+                        "on-primary": "#516700",
+                        "surface-container-low": "#131313",
+                        "outline": "#767575",
+                        "primary-container": "#cafd00",
+                        "inverse-on-surface": "#565555",
+                        "primary-fixed": "#cafd00",
+                        "surface-container": "#191a1a",
+                        "on-tertiary-container": "#584500",
+                        "surface-container-high": "#1f2020",
+                        "outline-variant": "#484848",
+                        "primary": "#f3ffca",
+                        "tertiary-container": "#f5ce53",
+                        "on-surface-variant": "#adaaaa",
+                        "primary-fixed-dim": "#beee00",
+                        "secondary-container": "#474646",
+                        "on-tertiary": "#624e00",
+                        "on-secondary": "#525151",
+                        "surface-tint": "#f3ffca",
+                        "on-background": "#ffffff",
+                        "secondary-dim": "#d7d4d3",
+                        "on-error": "#450900",
+                        "tertiary-dim": "#e6c047",
+                        "surface-dim": "#0e0e0e",
+                        "surface-bright": "#2c2c2c",
+                        "error-dim": "#d53d18",
+                        "inverse-primary": "#516700",
+                        "secondary-fixed-dim": "#d7d4d3",
+                        "secondary": "#e5e2e1",
+                        "primary-dim": "#beee00",
+                        "inverse-surface": "#fcf9f8",
+                        "on-error-container": "#ffd2c8",
+                        "surface": "#0e0e0e",
+                        "secondary-fixed": "#e5e2e1",
+                        "on-primary-container": "#4a5e00",
+                        "on-surface": "#ffffff",
+                        "surface-container-highest": "#262626",
+                        "on-secondary-fixed-variant": "#5c5b5b",
+                        "tertiary-fixed": "#f5ce53",
+                        "tertiary": "#ffdd79"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Lexend"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#0e0e0e]/80 backdrop-blur-xl flex justify-between items-center px-6 h-20 shadow-[0_40px_40px_-15px_rgba(243,255,202,0.08)]">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#f3ffca] text-2xl active:scale-95 transition-transform" data-icon="menu" style="">menu</span>
+<h1 class="font-['Lexend'] uppercase tracking-tighter font-bold text-xl font-black tracking-widest text-[#f3ffca]" style="">TRAINING VAULT</h1>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-[#f3ffca] overflow-hidden active:scale-95 transition-transform">
+<img class="w-full h-full object-cover" data-alt="professional fitness trainer profile portrait with dramatic cinematic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChQ8QJTFM59IAjZ85MS9GDrazGOSJJrI8TVo2lyWP9tuPo6vgMzRjVJWsefE9PJIaXJizkebeVLqmHfAe9sP-h-jZIkjBHBpNG0bl2y-YeRwqzGPsjEgIY_fPRSfYxsErIs1eTrpAghq4PlQAhCXA1HkF0T83_DMV6sLsBBmQ9wj_Al4ehAhj6yt7pDJJdsEUejpvqTs_VKd8TgcTRHk73OG3gIM0nf8j4hEoXF60aomvRm1lVAhVduMoVe-JPA5qF2g0P0jndLd8" style=""/>
+</div>
+</header>
+<main class="pt-24 pb-32 px-4 max-w-md mx-auto">
+<!-- Search & Filter Area -->
+<!-- Workout Library List -->
+<div class="space-y-3">
+<!-- List Item: Closed -->
+<div class="bg-surface-container-low rounded-xl p-5 flex justify-between items-center transition-all hover:bg-surface-container active:scale-[0.98]">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center border border-outline-variant/20">
+<span class="material-symbols-outlined text-primary" data-icon="fitness_center" style="">fitness_center</span>
+</div>
+<div>
+<h3 class="font-headline font-bold text-sm tracking-tight" style="">FLAT BENCH PRESS</h3>
+<p class="text-xs text-on-surface-variant uppercase tracking-wider" style="">Compound • Pushing</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="expand_more" style="">expand_more</span>
+</div>
+<!-- List Item: EXPANDED -->
+<div class="bg-surface-container-low rounded-[2rem] overflow-hidden border border-primary/10 shadow-2xl">
+<!-- Header part of expanded -->
+<div class="p-6 flex justify-between items-start">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" data-icon="fitness_center" style="">fitness_center</span>
+</div>
+<div>
+<h3 class="font-headline font-bold text-lg tracking-tighter text-primary" style="">INCLINE DUMBBELL PRESS</h3>
+<p class="text-xs text-on-surface-variant uppercase tracking-widest font-bold" style="">Upper Pectorals • Hypertrophy</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary" data-icon="expand_less" style="">expand_less</span>
+</div>
+<!-- Animated Placeholder/Visual -->
+<div class="px-4">
+<div class="relative w-full aspect-video rounded-2xl overflow-hidden bg-surface-container-lowest border border-outline-variant/30">
+<img class="w-full h-full object-cover opacity-60" data-alt="stylized 3D technical line-art animation of a male athlete performing an incline dumbbell press, professional fitness guide style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzWds04ADazJZPF1uKxk92fR82VdSbheE9wUgMCaWdlxCZWkPFRUDi0jKrZ3astlnUAsOTNIVc-C92OoiAsKmDCO1n7lUMTwsXHYPEexOSVNAUaw7d0QyyW5xWJhHzq4CnDkIHCr_A35I94H34HjDem0bAyETeKSe1N4H2SHnERnIFo0x4ZDw8c2ADirBbqx1hcsf-dEHPPnTQG72btD9vIkf4XGjCGv7OL-f2zGczzwdmjIlC_UCAQM3Do605saNA4ZZHavJpddk" style=""/>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="w-16 h-16 rounded-full bg-primary/20 backdrop-blur-md flex items-center justify-center border border-primary/40">
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="play_arrow" style='font-variation-settings: "FILL" 1;'>play_arrow</span>
+</div>
+</div>
+<!-- Glass Stat Overlay -->
+<div class="absolute bottom-4 left-4 right-4 flex justify-between gap-2">
+<div class="flex-1 bg-surface-variant/40 backdrop-blur-xl rounded-xl p-3 border border-white/5 text-center">
+<p class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest" style="">Sets</p>
+<p class="font-headline text-lg font-black text-primary" style="">4</p>
+</div>
+<div class="flex-1 bg-surface-variant/40 backdrop-blur-xl rounded-xl p-3 border border-white/5 text-center">
+<p class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest" style="">Reps</p>
+<p class="font-headline text-lg font-black text-primary" style="">8-12</p>
+</div>
+<div class="flex-1 bg-surface-variant/40 backdrop-blur-xl rounded-xl p-3 border border-white/5 text-center">
+<p class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest" style="">Rest</p>
+<p class="font-headline text-lg font-black text-primary" style="">90s</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Instructions -->
+<div class="p-6 space-y-6">
+<div>
+<h4 class="text-xs font-black uppercase tracking-[0.2em] text-on-surface-variant mb-4 flex items-center gap-2" style="">
+<span class="w-1 h-4 bg-primary rounded-full"></span> Execution Guide
+                        </h4>
+<ol class="space-y-4">
+<li class="flex gap-4" style="">
+<span class="font-headline font-black text-primary/30 text-2xl leading-none" style="">01</span>
+<p class="text-sm text-on-surface leading-relaxed pt-1" style="">Set bench to a <span class="text-primary font-bold" style="">30-45 degree</span> incline. Retract scapula and maintain a slight arch in lower back.</p>
+</li>
+<li class="flex gap-4" style="">
+<span class="font-headline font-black text-primary/30 text-2xl leading-none" style="">02</span>
+<p class="text-sm text-on-surface leading-relaxed pt-1" style="">Lower weights slowly until they are level with your upper chest, feeling a deep stretch in the pecs.</p>
+</li>
+<li class="flex gap-4" style="">
+<span class="font-headline font-black text-primary/30 text-2xl leading-none" style="">03</span>
+<p class="text-sm text-on-surface leading-relaxed pt-1" style="">Drive the weights upward in a slight arc, focusing on squeezing the chest at the peak.</p>
+</li>
+</ol>
+</div>
+<!-- Elite Insight Box -->
+<div class="bg-tertiary/10 border-l-4 border-tertiary rounded-r-xl p-4">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-tertiary text-lg" data-icon="verified" style='font-variation-settings: "FILL" 1;'>verified</span>
+<p class="text-[10px] font-black uppercase tracking-widest text-tertiary" style="">Trainer's Elite Insight</p>
+</div>
+<p class="text-xs text-tertiary-fixed leading-relaxed italic" style="">"Avoid clinking the dumbbells at the top. Stopping just short of vertical keeps the tension strictly on the pectoral fibers rather than the triceps."</p>
+</div>
+<button class="w-full py-4 rounded-full bg-gradient-to-br from-primary to-primary-container text-on-primary-container font-headline font-black uppercase tracking-widest text-sm shadow-[0_10px_30px_rgba(243,255,202,0.2)] active:scale-95 transition-all" style="">
+                        LOG FIRST SET
+                    </button>
+</div>
+</div>
+<!-- List Item: Closed -->
+<div class="bg-surface-container-low rounded-xl p-5 flex justify-between items-center transition-all hover:bg-surface-container">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center border border-outline-variant/20">
+<span class="material-symbols-outlined text-primary" data-icon="fitness_center" style="">fitness_center</span>
+</div>
+<div>
+<h3 class="font-headline font-bold text-sm tracking-tight" style="">CABLE CROSSOVER</h3>
+<p class="text-xs text-on-surface-variant uppercase tracking-wider" style="">Isolation • Squeeze</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="expand_more" style="">expand_more</span>
+</div>
+<!-- List Item: Closed -->
+<div class="bg-surface-container-low rounded-xl p-5 flex justify-between items-center transition-all hover:bg-surface-container">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center border border-outline-variant/20">
+<span class="material-symbols-outlined text-primary" data-icon="fitness_center" style="">fitness_center</span>
+</div>
+<div>
+<h3 class="font-headline font-bold text-sm tracking-tight" style="">DIPS (CHEST VERSION)</h3>
+<p class="text-xs text-on-surface-variant uppercase tracking-wider" style="">Bodyweight • Power</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="expand_more" style="">expand_more</span>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full rounded-t-[2rem] z-50 bg-[#0e0e0e]/90 backdrop-blur-2xl flex justify-around items-center px-4 h-24 pb-safe shadow-[0_-10px_30px_rgba(0,0,0,0.5)]">
+<div class="flex flex-col items-center justify-center text-[#484848] opacity-60 hover:opacity-100 transition-opacity active:scale-90 duration-300">
+<span class="material-symbols-outlined" data-icon="explore" style="">explore</span>
+<span class="font-['Manrope'] text-[10px] font-bold uppercase tracking-widest mt-1" style="">EXPLORE</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-gradient-to-br from-[#f3ffca] to-[#cafd00] text-black rounded-full w-14 h-14 translate-y-[-10px] shadow-[0_0_20px_rgba(243,255,202,0.4)] active:scale-90 transition-all duration-300">
+<span class="material-symbols-outlined" data-icon="fitness_center" style="">fitness_center</span>
+<span class="font-['Manrope'] text-[8px] font-bold uppercase tracking-[0.05em] leading-none" style="">LIBRARY</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#484848] opacity-60 hover:opacity-100 transition-opacity active:scale-90 duration-300">
+<span class="material-symbols-outlined" data-icon="timer" style="">timer</span>
+<span class="font-['Manrope'] text-[10px] font-bold uppercase tracking-widest mt-1" style="">SESSIONS</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#484848] opacity-60 hover:opacity-100 transition-opacity active:scale-90 duration-300">
+<span class="material-symbols-outlined" data-icon="person" style="">person</span>
+<span class="font-['Manrope'] text-[10px] font-bold uppercase tracking-widest mt-1" style="">PROFILE</span>
+</div>
+</nav>
+</body></html>

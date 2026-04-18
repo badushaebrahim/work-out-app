@@ -13,17 +13,17 @@ export default function TrialTracker() {
       // But we can check localStorage solely to lock them out of the frontend if their device is expired.
       
       const TRIAL_DAYS = 7;
-      let deviceId = localStorage.getItem('kinetic_device_id');
-      let firstVisit = localStorage.getItem('kinetic_first_visit');
+      let deviceId = localStorage.getItem('buddy_device_id');
+      let firstVisit = localStorage.getItem('buddy_first_visit');
 
       if (!deviceId) {
         deviceId = 'dev_' + Math.random().toString(36).substring(2, 15);
-        localStorage.setItem('kinetic_device_id', deviceId);
+        localStorage.setItem('buddy_device_id', deviceId);
       }
 
       if (!firstVisit) {
         firstVisit = new Date().toISOString();
-        localStorage.setItem('kinetic_first_visit', firstVisit);
+        localStorage.setItem('buddy_first_visit', firstVisit);
       }
 
       const visitDate = new Date(firstVisit);

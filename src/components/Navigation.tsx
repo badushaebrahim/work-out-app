@@ -12,7 +12,7 @@ export default function Navigation() {
         </span>
         <span className="font-manrope text-[10px] font-bold uppercase tracking-widest">HOME</span>
       </Link>
-      
+
       <Link
         href="/workouts"
         className="flex flex-col items-center justify-center text-gray-600 transition-all duration-300 hover:text-[#f3ffca]/80 active:scale-90"
@@ -20,15 +20,15 @@ export default function Navigation() {
         <span className="material-symbols-outlined mb-1">fitness_center</span>
         <span className="font-manrope text-[10px] font-bold uppercase tracking-widest">WORKOUTS</span>
       </Link>
-      
+
       <Link
         href="/hub"
         className="flex flex-col items-center justify-center text-gray-600 transition-all duration-300 hover:text-[#f3ffca]/80 active:scale-90"
       >
         <span className="material-symbols-outlined mb-1">workspace_premium</span>
-        <span className="font-manrope text-[10px] font-bold uppercase tracking-widest">HUB</span>
+        <span className="font-manrope text-[10px] font-bold uppercase tracking-widest">EXPLORE</span>
       </Link>
-      
+
       <Link
         href="/profile"
         className="flex flex-col items-center justify-center text-gray-600 transition-all duration-300 hover:text-[#f3ffca]/80 active:scale-90"

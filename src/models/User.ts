@@ -7,6 +7,11 @@ export interface IUser extends Document {
   deviceId?: string; // used for anonymous/basic visitors
   firstVisitDate?: Date;
   premiumValidUntil?: Date; // For premium tracking
+  metrics?: {
+    bmi?: number;
+    bodyFat?: number;
+    dailyCalories?: number;
+  };
   createdAt: Date;
   updatedAt: Date;
 }
@@ -39,6 +44,11 @@ const UserSchema: Schema<IUser> = new Schema(
     },
     premiumValidUntil: {
       type: Date,
+    },
+    metrics: {
+      bmi: Number,
+      bodyFat: Number,
+      dailyCalories: Number,
     },
   },
   {

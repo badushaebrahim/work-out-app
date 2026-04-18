@@ -15,7 +15,7 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: 'KINETIC ELITE | DASHBOARD',
+  title: 'BUDDY ELITE | DASHBOARD',
   description: 'The world\'s most exclusive premium fitness platform.',
 };
 

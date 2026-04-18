@@ -12,7 +12,7 @@ export default function Header() {
           />
         </div>
         <span className="text-2xl font-black text-[#f3ffca] tracking-widest italic font-lexend">
-          KINETIC
+          BUDDY
         </span>
       </div>
       <div className="flex items-center gap-4">

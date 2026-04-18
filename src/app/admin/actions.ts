@@ -15,6 +15,13 @@ export async function createWorkout(formData: FormData) {
   const tier = formData.get('tier') as string;
   const category = formData.get('category') as string;
   const mediaUrl = formData.get('mediaUrl') as string;
+  const exercisesRaw = formData.get('exercises') as string;
+  let exercises = [];
+  try {
+    if (exercisesRaw) {
+      exercises = JSON.parse(exercisesRaw);
+    }
+  } catch(e) {}
   
   await Workout.create({
     title,
@@ -22,7 +29,8 @@ export async function createWorkout(formData: FormData) {
     tier,
     categories: [category],
     mediaUrl,
-    mediaType: 'image'
+    mediaType: 'image',
+    exercises
   });
   
   revalidatePath('/admin');
@@ -99,8 +107,16 @@ export async function updateWorkout(id: string, formData: FormData) {
   const tier = formData.get('tier') as string;
   const category = formData.get('category') as string;
   const mediaUrl = formData.get('mediaUrl') as string;
+  const exercisesRaw = formData.get('exercises') as string;
+  let exercises;
+  try {
+    if (exercisesRaw) {
+      exercises = JSON.parse(exercisesRaw);
+    }
+  } catch(e) {}
 
   const updateData: any = { title, description, tier, categories: [category] };
+  if (exercises) updateData.exercises = exercises;
   if (mediaUrl) updateData.mediaUrl = mediaUrl;
 
   await Workout.findByIdAndUpdate(id, updateData);

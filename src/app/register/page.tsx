@@ -18,7 +18,7 @@ export default function Register() {
     setError('');
 
     try {
-      const deviceId = localStorage.getItem('kinetic_device_id');
+      const deviceId = localStorage.getItem('buddy_device_id');
       const { encryptPasswordClientSide } = await import('@/lib/encryption');
       const encryptedPassword = encryptPasswordClientSide(password);
 
@@ -99,7 +99,7 @@ export default function Register() {
                   onChange={e => setEmail(e.target.value)}
                   required
                   className="w-full bg-surface-container-highest border-none focus:ring-1 focus:ring-[#CCFF00]/30 text-white placeholder:text-on-surface-variant/30 py-4 pl-12 rounded-full transition-all duration-300 focus:outline-none"
-                  placeholder="PERFORMANCE@KINETIC.COM"
+                  placeholder="PERFORMANCE@BUDDY.COM"
                 />
               </div>
             </div>
