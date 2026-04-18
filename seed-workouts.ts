@@ -10,6 +10,10 @@ const seedDB = async () => {
             console.error('No MONGODB_URI found.');
             return;
         }
+        if (process.env.USER_ENV !== 'DEV') {
+            console.error("Please add USER_ENV=DEV to .env.local before running seed.");
+            process.exit(1);
+        }
 
         console.log("Connecting to Database...");
         await mongoose.connect(process.env.MONGODB_URI);
