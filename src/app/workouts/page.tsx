@@ -30,8 +30,10 @@ export default async function WorkoutsLibrary({
     ? docs
     : docs.filter(w => w.categories && w.categories.map((c: string) => c.toUpperCase()).includes(currentFocus.toUpperCase()));
 
-  {/* Workout Directory Headers */ }
-  <section className="space-y-4">
+  return (
+    <main className="pt-20 px-6 space-y-8 pb-24">
+      {/* Workout Directory Headers */}
+      <section className="space-y-4">
     <div className="flex justify-between items-end">
       <Link href="/" className="material-symbols-outlined text-[#f3ffca] active:scale-95 transition-transform text-3xl">arrow_back</Link>
     </div>
@@ -78,6 +80,6 @@ export default async function WorkoutsLibrary({
       </div>
     )}
   </section>
-  // </main >
-  // );
+</main>
+  );
 }

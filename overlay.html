@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#cafd00",
+                        "secondary": "#e5e2e1",
+                        "on-tertiary-container": "#584500",
+                        "outline-variant": "#484848",
+                        "on-secondary": "#525151",
+                        "secondary-fixed-dim": "#d7d4d3",
+                        "inverse-surface": "#fcf9f8",
+                        "surface-container": "#191a1a",
+                        "on-primary-container": "#4a5e00",
+                        "on-error-container": "#ffd2c8",
+                        "on-error": "#450900",
+                        "inverse-on-surface": "#565555",
+                        "surface": "#0e0e0e",
+                        "on-tertiary-fixed-variant": "#634e00",
+                        "on-surface": "#ffffff",
+                        "on-primary": "#516700",
+                        "primary-dim": "#beee00",
+                        "secondary-container": "#474646",
+                        "primary-container": "#cafd00",
+                        "surface-variant": "#262626",
+                        "surface-container-low": "#131313",
+                        "on-secondary-container": "#d2d0cf",
+                        "on-tertiary-fixed": "#413200",
+                        "surface-dim": "#0e0e0e",
+                        "error-container": "#b92902",
+                        "primary-fixed-dim": "#beee00",
+                        "tertiary": "#ffdd79",
+                        "background": "#0e0e0e",
+                        "error": "#ff7351",
+                        "tertiary-container": "#f5ce53",
+                        "outline": "#767575",
+                        "tertiary-fixed": "#f5ce53",
+                        "on-background": "#ffffff",
+                        "on-secondary-fixed": "#403f3f",
+                        "tertiary-fixed-dim": "#e6c047",
+                        "secondary-dim": "#d7d4d3",
+                        "on-primary-fixed": "#3a4a00",
+                        "inverse-primary": "#516700",
+                        "surface-bright": "#2c2c2c",
+                        "secondary-fixed": "#e5e2e1",
+                        "surface-tint": "#f3ffca",
+                        "primary": "#f3ffca",
+                        "error-dim": "#d53d18",
+                        "on-primary-fixed-variant": "#526900",
+                        "surface-container-high": "#1f2020",
+                        "surface-container-highest": "#262626",
+                        "on-tertiary": "#624e00",
+                        "on-secondary-fixed-variant": "#5c5b5b",
+                        "surface-container-lowest": "#000000",
+                        "on-surface-variant": "#adaaaa",
+                        "tertiary-dim": "#e6c047"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Lexend"],
+                        "display": ["Lexend"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(38, 38, 38, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .qr-gradient {
+            background: linear-gradient(135deg, #191a1a 0%, #000000 100%);
+        }
+        .neon-glow-primary {
+            box-shadow: 0 0 20px rgba(204, 255, 0, 0.3);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body min-h-screen flex flex-col">
+<!-- Top Navigation Anchor -->
+<header class="bg-zinc-950/80 backdrop-blur-xl text-[#CCFF00] font-lexend uppercase tracking-tighter font-bold text-2xl docked full-width top-0 bg-gradient-to-b from-zinc-900 to-transparent shadow-[0_10px_30px_-15px_rgba(204,255,0,0.15)] flex justify-between items-center w-full px-6 py-4 fixed z-40">
+<div class="text-[#CCFF00] font-lexend font-black tracking-widest">ELITE ACCESS</div>
+<button class="active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-2xl">more_vert</span>
+</button>
+</header>
+<!-- Main Content Canvas (Background behind overlay) -->
+<main class="flex-grow pt-24 px-6 pb-32">
+<section class="max-w-4xl mx-auto space-y-8">
+<div class="relative h-64 w-full rounded-full overflow-hidden">
+<img alt="Gym intensity" class="w-full h-full object-cover" data-alt="dramatic high-contrast wide shot of a moody dark gym with sharp shadows and electric lime lighting highlights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkzTSsUUBpFoe656LxPuYHL9Mkyr1P3q7d8oVqB6Mlapi9UVgguurrk_ibfpOzeH1dj0g4tloc8RtQD36YLyETTQh2sdk-stUs1oi2QukWsY3NzXP0nb3mW4xl-ez0GPd2TJS_cplSNFPmAn-q6U1UYEOerJoNH36D4sjjzN0dPCaNlFi-QjfXtrKNGXoug5NlUJgso88TqmKWTaTrBAO0r0Ek9fxvdl6MKi1PdGKgf8iw3dzSYbQPVcFjbpleENyzkJDwkG1Rnbo"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface to-transparent"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="bg-surface-container-high p-8 rounded-full">
+<h2 class="font-display text-4xl font-black uppercase tracking-tighter mb-4">Pulse Tracker</h2>
+<div class="text-primary font-display text-6xl">142<span class="text-xl ml-2 uppercase font-body text-on-surface-variant">bpm</span></div>
+</div>
+<div class="bg-surface-container-low p-8 rounded-full flex flex-col justify-center">
+<p class="text-on-surface-variant font-label text-sm uppercase tracking-widest mb-2">Next Session</p>
+<h3 class="font-display text-2xl font-bold">HYPERTROPHY X</h3>
+</div>
+</div>
+</section>
+</main>
+<!-- Overlay Popup Component -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 bg-black/80 backdrop-blur-md">
+<!-- Modal Container -->
+<div class="relative w-full max-w-md bg-surface border border-outline-variant/10 rounded-full overflow-hidden shadow-[0_24px_80px_rgba(0,0,0,0.8)] flex flex-col">
+<!-- Close Button -->
+<button class="absolute top-6 right-6 z-10 text-on-surface-variant hover:text-on-surface transition-colors active:scale-90">
+<span class="material-symbols-outlined text-3xl">close</span>
+</button>
+<div class="p-8 md:p-10 flex flex-col items-center text-center">
+<!-- Header -->
+<h1 class="font-display font-black text-4xl uppercase tracking-tighter text-on-surface mb-2">Invite a Buddy</h1>
+<p class="text-on-surface-variant font-body mb-8 max-w-[280px]">Expand your squad and dominate the obsidian floor together.</p>
+<!-- QR Area -->
+<div class="qr-gradient p-6 rounded-full border border-outline-variant/20 mb-8 flex items-center justify-center relative group">
+<div class="absolute inset-0 bg-primary/5 rounded-full blur-xl opacity-50"></div>
+<div class="relative w-48 h-48 bg-white p-2 rounded-xl">
+<!-- Placeholder for QR Code Graphic -->
+<img alt="QR Code" class="w-full h-full object-contain" data-alt="abstract sharp black and white geometric qr code design on a clean white square background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDv_Sl9GC_om2DDE937sp7Ab2Gwap9jUVvWqdGXnL_RjNrLaOI6JKvtprgmk5c2hqb6VSHZ-bHhGw1i17QeNnVo3_rMiFGMi-pEdJyaK38euvnKUHhPiNrqlNBBVhpWEynfGnmrWtu-a_VNRc1QbcXsqMjP6ZEd1Cs7opJV3i3gOvEvYEJd9doAEw9wTSrZDxH-B1D8RcyBKRrz8nhjgawzxARXHlalBYhpWjIip-IN8K-UIH-KFBrKDZgfMIPx9mibStYHAKjxRXI"/>
+</div>
+</div>
+<!-- Copy Link Button -->
+<button class="w-full py-5 px-8 rounded-full bg-gradient-to-br from-[#f3ffca] to-[#cafd00] text-black font-display font-black uppercase tracking-widest flex items-center justify-center gap-3 transition-all hover:brightness-110 active:scale-95 neon-glow-primary mb-10">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">link</span>
+                    Copy Unique Link
+                </button>
+<!-- Social Share Row -->
+<div class="flex items-center justify-center gap-6 mb-10">
+<button class="w-14 h-14 rounded-full bg-surface-container-highest flex items-center justify-center hover:bg-surface-bright transition-colors active:scale-90">
+<span class="material-symbols-outlined text-2xl text-on-surface">chat_bubble</span>
+</button>
+<button class="w-14 h-14 rounded-full bg-surface-container-highest flex items-center justify-center hover:bg-surface-bright transition-colors active:scale-90">
+<span class="material-symbols-outlined text-2xl text-on-surface">photo_camera</span>
+</button>
+<button class="w-14 h-14 rounded-full bg-surface-container-highest flex items-center justify-center hover:bg-surface-bright transition-colors active:scale-90">
+<span class="material-symbols-outlined text-2xl text-on-surface">ios_share</span>
+</button>
+<button class="w-14 h-14 rounded-full bg-surface-container-highest flex items-center justify-center hover:bg-surface-bright transition-colors active:scale-90">
+<span class="material-symbols-outlined text-2xl text-on-surface">mail</span>
+</button>
+</div>
+<!-- Referral Perk Card -->
+<div class="w-full p-6 bg-surface-container-lowest border border-outline-variant/15 rounded-full flex items-center gap-4 text-left">
+<div class="bg-tertiary-container/20 p-3 rounded-full">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+<div>
+<p class="text-tertiary font-display font-bold uppercase text-xs tracking-widest">Premium Reward</p>
+<p class="text-on-surface font-body text-sm">Get 1 month ELITE for every successful referral.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Navigation Anchor -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-6 pb-8 pt-4 bg-[#0e0e0e] rounded-t-3xl shadow-[0_-8px_40px_rgba(0,0,0,0.5)]">
+<button class="flex flex-col items-center justify-center text-zinc-600 p-3 hover:text-zinc-200 transition-all active:scale-90 duration-200">
+<span class="material-symbols-outlined">fitness_center</span>
+</button>
+<button class="flex flex-col items-center justify-center text-zinc-600 p-3 hover:text-zinc-200 transition-all active:scale-90 duration-200">
+<span class="material-symbols-outlined">explore</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-gradient-to-br from-[#f3ffca] to-[#cafd00] text-black rounded-full p-3 scale-110 -translate-y-2 shadow-[0_0_20px_rgba(204,255,0,0.4)] transition-all active:scale-90 duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">share</span>
+</button>
+<button class="flex flex-col items-center justify-center text-zinc-600 p-3 hover:text-zinc-200 transition-all active:scale-90 duration-200">
+<span class="material-symbols-outlined">person</span>
+</button>
+</nav>
+</body></html>

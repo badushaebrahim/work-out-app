@@ -1,6 +1,48 @@
 import TrialTracker from '@/components/TrialTracker';
 import CountdownClock from '@/components/CountdownClock';
-export default function Dashboard() {
+import ShareButton from '@/components/ShareButton';
+import mongoose from 'mongoose';
+import Workout from '@/models/Workout';
+
+// Force dynamic so it loads freshly from the DB
+export const dynamic = 'force-dynamic';
+
+const categoryImages: Record<string, string> = {
+  BICEPS: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCqqMtxEoBlL4_jSyYgeXoX4MB4saGLieRIhaJqDS8RyNKdHNAdaQYn8EDcGC_f3PLbeg94Y5zDGesu3mcJX6g0b6by9yk24VhyFg8otOoxgbkZzlCM_hnHUsTwSiCbxuJMQnH3w9jo75batkTOPwGjS2HT827l4XaOKdzqHmIi3YEBFDc9yYjcYq77lgYmkwP22ifu1I92cNOF_ydKdfagwmKyfu2-3_g7lwQGXkpGIi275p3NXVhem-CtxSNGs8ji8HXi5sSL8EE',
+  TRICEPS: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBptWb0A3VLl5S2YfklQvYQSgxx0OLtpkooX1VqXMuzU3in38ZIBQDgvJwy3oQTP_ZOywVWX7oJg4kM60S02lPSbgwvuyXP69y26XzfjEShYb0wWRoGYHbSxZEJDIeKBOlTqQjOzlXXMd7JH7s3naFi8T4vbBUkfcuONTlMzFXMAGNSLQls7Ny0puSr53bGmKPT3LsljKDgdgHjdyqlUI1fagO78rddJKjdoAOScgABIAhujMt5N78x_HxUg3TbmMmvuN0fIbhIwrE',
+  BACK: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD7qYm3FfSxS-uVwVjpM4ifIhX3x7RrVk8lC8BtoM3pDR_JQs6bk7hqM0K9WTMQlSXx12bXn4ydtJXiHuPOkZTLcUkDE_POTrVExE7amKJDdxp_dM8AG7tPy_kv8Kilz6x-5AYtYZXx5crUymVNqzt0OX6t9lmdhnhtmsO04Rx-MqQstKln-EVtLpmSvb3LInhhwzTKIWn-d9KwGJUj3orsoKVx3R6wC8mThrs06n6FLgF7WAEFOwVmputNg7EzfVmSsZegUmiF0xA',
+  LEGS: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDakohgWd7wPq668mOSEr8maUGhLcbMgIyxY_D29CL-RLUH9VRGKiygMuuBlvulFp6a8IKjBz9jV-pHVVJiotUFs-x3NmDn4zUJm1SE7zhCj0rthQfobDwNkE7N-H69jZhiqF8ssRrH__maiVMJzJWFnYUH2GsREhJiQscgc1xezNkN71GCuobPnhCR5o6LwiY0YqB07CDDZVGeUBWC38adUWM01cQYYzPXWbny_8W4wYDQUviWuxOSiIaGWie0gkIAzicuDGkOi1w',
+  SHOULDERS: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCnENpLzI_BqwDq_sVSlppsUSwHQyHLV1vYgVvpTfALEUffkkQMUZppECjD1Mm8gKAjoBUwLUXXNwxIZ3d52GRUzIfhUH2kcw5cUDBAb6kQ689D2CtqgBNs6muLhbnqaujoxUHxd6sZntQoOcTZpkNpKaF1yvGKEGYR8OLV29SFy67_xB3CTBJ1o6ft9x3zoK0mfwgZc3OuDGh-Fbfj--aVomdi3PKhdes0DfDlf6yyEH-bCpzP10dTZJ2wI3IplH2UIS2stQA0Rms',
+  MIX: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC9vf5Na2jl4Bj81uUSwe9FXyb0GJM31np6p6zud7H99_GTFBHXbEWphwsYQIrkHyVVGEOruTzQU-sUOQSpUgDOm8TZcFenTdjjebtoqG8czP4DoBPcIxP_DwB83xtP2AHez1ZGxN7gWoyOcORhD043eRbgBwXeoJkxpWBKpMj2YntYvqutQAJpgkb_3rx2mWIopUOWTUc4ts-tt4n1rp3zt2iTLNfHdVfb1tWFMj24PkMuRzBtjznhTM3LX4t0o8QGwrgYas4L9mw',
+};
+const defaultImg = 'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=500';
+
+export default async function Dashboard() {
+  if (mongoose.connection.readyState !== 1 && process.env.MONGODB_URI) {
+    await mongoose.connect(process.env.MONGODB_URI);
+  }
+
+  let dbCategories: string[] = [];
+  try {
+    dbCategories = await Workout.distinct('categories') || [];
+  } catch (e) {
+    console.error("DB Error", e);
+  }
+
+  // Filter out any empty strings or nulls and format them
+  const validCategories = dbCategories
+    .filter(c => c && typeof c === 'string' && c.trim().length > 0)
+    .map(c => c.toUpperCase());
+    
+  // Deduplicate case-insensitive categories
+  const uniqueCategories = Array.from(new Set(validCategories));
+
+  const tiles = uniqueCategories.map(cat => ({
+    title: cat,
+    href: `/workouts?focus=${encodeURIComponent(cat)}`,
+    img: categoryImages[cat] || defaultImg,
+  }));
+
   return (
     <main className="pt-20 px-6 space-y-8">
       <TrialTracker />
@@ -56,14 +98,7 @@ export default function Dashboard() {
           </a>
         </div>
         <div className="grid grid-cols-2 gap-4">
-          {[
-            { title: 'BICEPS', href: '/workouts?focus=BICEPS', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCqqMtxEoBlL4_jSyYgeXoX4MB4saGLieRIhaJqDS8RyNKdHNAdaQYn8EDcGC_f3PLbeg94Y5zDGesu3mcJX6g0b6by9yk24VhyFg8otOoxgbkZzlCM_hnHUsTwSiCbxuJMQnH3w9jo75batkTOPwGjS2HT827l4XaOKdzqHmIi3YEBFDc9yYjcYq77lgYmkwP22ifu1I92cNOF_ydKdfagwmKyfu2-3_g7lwQGXkpGIi275p3NXVhem-CtxSNGs8ji8HXi5sSL8EE' },
-            { title: 'TRICEPS', href: '/workouts?focus=TRICEPS', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBptWb0A3VLl5S2YfklQvYQSgxx0OLtpkooX1VqXMuzU3in38ZIBQDgvJwy3oQTP_ZOywVWX7oJg4kM60S02lPSbgwvuyXP69y26XzfjEShYb0wWRoGYHbSxZEJDIeKBOlTqQjOzlXXMd7JH7s3naFi8T4vbBUkfcuONTlMzFXMAGNSLQls7Ny0puSr53bGmKPT3LsljKDgdgHjdyqlUI1fagO78rddJKjdoAOScgABIAhujMt5N78x_HxUg3TbmMmvuN0fIbhIwrE' },
-            { title: 'BACK', href: '/workouts?focus=BACK', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD7qYm3FfSxS-uVwVjpM4ifIhX3x7RrVk8lC8BtoM3pDR_JQs6bk7hqM0K9WTMQlSXx12bXn4ydtJXiHuPOkZTLcUkDE_POTrVExE7amKJDdxp_dM8AG7tPy_kv8Kilz6x-5AYtYZXx5crUymVNqzt0OX6t9lmdhnhtmsO04Rx-MqQstKln-EVtLpmSvb3LInhhwzTKIWn-d9KwGJUj3orsoKVx3R6wC8mThrs06n6FLgF7WAEFOwVmputNg7EzfVmSsZegUmiF0xA' },
-            { title: 'LEGS', href: '/workouts?focus=LEGS', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDakohgWd7wPq668mOSEr8maUGhLcbMgIyxY_D29CL-RLUH9VRGKiygMuuBlvulFp6a8IKjBz9jV-pHVVJiotUFs-x3NmDn4zUJm1SE7zhCj0rthQfobDwNkE7N-H69jZhiqF8ssRrH__maiVMJzJWFnYUH2GsREhJiQscgc1xezNkN71GCuobPnhCR5o6LwiY0YqB07CDDZVGeUBWC38adUWM01cQYYzPXWbny_8W4wYDQUviWuxOSiIaGWie0gkIAzicuDGkOi1w' },
-            { title: 'SHOULDERS', href: '/workouts?focus=SHOULDERS', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCnENpLzI_BqwDq_sVSlppsUSwHQyHLV1vYgVvpTfALEUffkkQMUZppECjD1Mm8gKAjoBUwLUXXNwxIZ3d52GRUzIfhUH2kcw5cUDBAb6kQ689D2CtqgBNs6muLhbnqaujoxUHxd6sZntQoOcTZpkNpKaF1yvGKEGYR8OLV29SFy67_xB3CTBJ1o6ft9x3zoK0mfwgZc3OuDGh-Fbfj--aVomdi3PKhdes0DfDlf6yyEH-bCpzP10dTZJ2wI3IplH2UIS2stQA0Rms' },
-            { title: 'MIX', href: '/workouts?focus=MIX', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC9vf5Na2jl4Bj81uUSwe9FXyb0GJM31np6p6zud7H99_GTFBHXbEWphwsYQIrkHyVVGEOruTzQU-sUOQSpUgDOm8TZcFenTdjjebtoqG8czP4DoBPcIxP_DwB83xtP2AHez1ZGxN7gWoyOcORhD043eRbgBwXeoJkxpWBKpMj2YntYvqutQAJpgkb_3rx2mWIopUOWTUc4ts-tt4n1rp3zt2iTLNfHdVfb1tWFMj24PkMuRzBtjznhTM3LX4t0o8QGwrgYas4L9mw' },
-          ].map((tile) => (
+          {tiles.length > 0 ? tiles.map((tile) => (
             <a key={tile.title} href={tile.href} className="bg-surface-container rounded-3xl overflow-hidden flex flex-col active:scale-[0.98] transition-transform">
               <div className="relative aspect-square">
                 <img alt={`${tile.title} workout`} className="w-full h-full object-cover" src={tile.img} />
@@ -73,7 +108,11 @@ export default function Dashboard() {
                 </div>
               </div>
             </a>
-          ))}
+          )) : (
+            <div className="col-span-2 text-center py-4 text-on-surface-variant font-label text-xs uppercase tracking-widest">
+              No categories found
+            </div>
+          )}
         </div>
       </section>
 
@@ -146,12 +185,8 @@ export default function Dashboard() {
         </div>
       </section>
 
-      {/* Contextual FAB */}
-      {/* <button className="fixed right-6 bottom-24 bg-primary text-on-primary w-14 h-14 rounded-full shadow-[0_10px_30px_rgba(202,253,0,0.4)] flex items-center justify-center active:scale-90 transition-transform z-40">
-        <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>
-          add
-        </span>
-      </button> */}
+      {/* Contextual FAB for sharing the link */}
+      <ShareButton />
     </main>
   );
 }
