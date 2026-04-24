@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import connectToDatabase from '@/lib/db';
 import Workout from '@/models/Workout';
 import Link from 'next/link';
 import { cookies } from 'next/headers';
@@ -29,9 +30,7 @@ export default async function WorkoutsLibrary({
   } catch (e) {}
 
   // Connect to DB wrapper
-  if (mongoose.connection.readyState !== 1 && process.env.MONGODB_URI) {
-    await mongoose.connect(process.env.MONGODB_URI);
-  }
+  await connectToDatabase();
 
   // Fetch workouts to display
   let docs: any[] = [];

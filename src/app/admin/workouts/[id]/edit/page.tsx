@@ -8,10 +8,7 @@ import ExerciseImporter from "@/components/ExerciseImporter";
 export default async function EditWorkoutPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   
-  if (mongoose.connection.readyState !== 1 && process.env.MONGODB_URI) {
-    await mongoose.connect(process.env.MONGODB_URI);
-  }
-
+  await connectToDatabase();
   const workout = await Workout.findById(id).lean();
   if (!workout) notFound();
 

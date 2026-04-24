@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 import { verifyJwt } from '@/lib/jwt';
 import mongoose from 'mongoose';
+import connectToDatabase from '@/lib/db';
 import User from '@/models/User';
 import HubCalculators from './HubCalculators';
 import Header from '@/components/Header';
@@ -16,9 +17,7 @@ export default async function HubPage() {
     try {
       const decoded = await verifyJwt(token);
       if (decoded && decoded.userId) {
-        if (mongoose.connection.readyState !== 1 && process.env.MONGODB_URI) {
-          await mongoose.connect(process.env.MONGODB_URI);
-        }
+        await connectToDatabase();
         
         const user = await User.findById(decoded.userId).lean();
         if (user) {

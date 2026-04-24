@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import connectToDatabase from "@/lib/db";
 import Post from "@/models/Post";
 import { updatePost } from "@/app/admin/actions";
 import { notFound } from "next/navigation";
@@ -6,9 +7,7 @@ import { notFound } from "next/navigation";
 export default async function EditPostPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   
-  if (mongoose.connection.readyState !== 1 && process.env.MONGODB_URI) {
-    await mongoose.connect(process.env.MONGODB_URI);
-  }
+  await connectToDatabase();
 
   const post = await Post.findById(id).lean();
   if (!post) notFound();

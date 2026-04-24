@@ -2,7 +2,7 @@
 
 import { cookies } from 'next/headers';
 import { verifyJwt } from '@/lib/jwt';
-import mongoose from 'mongoose';
+import connectToDatabase from '@/lib/db';
 import User from '@/models/User';
 
 export async function saveHubMetrics(metrics: { bmi?: number; bodyFat?: number; dailyCalories?: number }) {
@@ -19,9 +19,7 @@ export async function saveHubMetrics(metrics: { bmi?: number; bodyFat?: number; 
       return { success: false, error: 'Invalid token.' };
     }
 
-    if (mongoose.connection.readyState !== 1 && process.env.MONGODB_URI) {
-      await mongoose.connect(process.env.MONGODB_URI);
-    }
+    await connectToDatabase();
 
     const user = await User.findById(decoded.userId);
     if (!user) {

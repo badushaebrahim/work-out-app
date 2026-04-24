@@ -112,9 +112,9 @@ export default function Login() {
               <label className="text-[10px] font-headline font-bold uppercase tracking-widest text-on-surface-variant" htmlFor="password">
                 Password
               </label>
-              <a className="text-[10px] font-headline font-bold uppercase tracking-widest text-[#CCFF00] hover:opacity-80 transition-opacity" href="#">
+              <Link className="text-[10px] font-headline font-bold uppercase tracking-widest text-[#CCFF00] hover:opacity-80 transition-opacity" href="/forgot-password">
                 Forgot Password?
-              </a>
+              </Link>
             </div>
             <div className="relative group">
               <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant transition-colors">lock</span>

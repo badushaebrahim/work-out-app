@@ -2,6 +2,7 @@ import TrialTracker from '@/components/TrialTracker';
 import CountdownClock from '@/components/CountdownClock';
 import ShareButton from '@/components/ShareButton';
 import mongoose from 'mongoose';
+import connectToDatabase from '@/lib/db';
 import Workout from '@/models/Workout';
 import { cookies } from 'next/headers';
 import { verifyJwt } from '@/lib/jwt';
@@ -33,9 +34,8 @@ export default async function Dashboard() {
     }
   } catch (e) {}
 
-  if (mongoose.connection.readyState !== 1 && process.env.MONGODB_URI) {
-    await mongoose.connect(process.env.MONGODB_URI);
-  }
+  // Connect to DB via wrapper
+  await connectToDatabase();
 
   let dbCategories: string[] = [];
   let basicCategories: string[] = [];

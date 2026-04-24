@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import connectToDatabase from "@/lib/db";
 import Exercise from "@/models/Exercise";
 import Link from "next/link";
 import { updateExercise } from "@/app/admin/actions";
@@ -11,9 +12,7 @@ export default async function EditExercisePage({
 }) {
   const { id } = await params;
   
-  if (mongoose.connection.readyState !== 1 && process.env.MONGODB_URI) {
-    await mongoose.connect(process.env.MONGODB_URI);
-  }
+  await connectToDatabase();
 
   const exercise = await Exercise.findById(id).lean();
   if (!exercise) redirect("/admin");

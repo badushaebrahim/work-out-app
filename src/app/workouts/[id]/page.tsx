@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import connectToDatabase from '@/lib/db';
 import Workout from '@/models/Workout';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
@@ -7,10 +8,8 @@ import ExerciseAccordion from '@/components/ExerciseAccordion';
 export default async function WorkoutDetailList({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
-  // Connect to DB wrapper
-  if (mongoose.connection.readyState !== 1 && process.env.MONGODB_URI) {
-    await mongoose.connect(process.env.MONGODB_URI);
-  }
+  // Connect to DB via wrapper
+  await connectToDatabase();
 
   let workout = null;
   try {

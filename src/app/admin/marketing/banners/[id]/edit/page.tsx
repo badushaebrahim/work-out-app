@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import connectToDatabase from "@/lib/db";
 import BannerAd from "@/models/BannerAd";
 import { updateBannerAd } from "@/app/admin/actions";
 import { notFound } from "next/navigation";
@@ -6,9 +7,7 @@ import { notFound } from "next/navigation";
 export default async function EditBannerAdPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   
-  if (mongoose.connection.readyState !== 1 && process.env.MONGODB_URI) {
-    await mongoose.connect(process.env.MONGODB_URI);
-  }
+  await connectToDatabase();
 
   const ad = await BannerAd.findById(id).lean();
   if (!ad) notFound();
