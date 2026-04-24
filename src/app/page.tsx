@@ -3,6 +3,8 @@ import CountdownClock from '@/components/CountdownClock';
 import ShareButton from '@/components/ShareButton';
 import mongoose from 'mongoose';
 import Workout from '@/models/Workout';
+import { cookies } from 'next/headers';
+import { verifyJwt } from '@/lib/jwt';
 
 // Force dynamic so it loads freshly from the DB
 export const dynamic = 'force-dynamic';
@@ -18,13 +20,28 @@ const categoryImages: Record<string, string> = {
 const defaultImg = 'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=500';
 
 export default async function Dashboard() {
+  // Check User Premium Status
+  let isPremium = false;
+  try {
+    const cookieStore = await cookies();
+    const token = cookieStore.get('authToken')?.value;
+    if (token) {
+      const payload = await verifyJwt(token);
+      if (payload && (payload.role === 'premium' || payload.role === 'admin')) {
+        isPremium = true;
+      }
+    }
+  } catch (e) {}
+
   if (mongoose.connection.readyState !== 1 && process.env.MONGODB_URI) {
     await mongoose.connect(process.env.MONGODB_URI);
   }
 
   let dbCategories: string[] = [];
+  let basicCategories: string[] = [];
   try {
     dbCategories = await Workout.distinct('categories') || [];
+    basicCategories = await Workout.distinct('categories', { tier: 'basic' }) || [];
   } catch (e) {
     console.error("DB Error", e);
   }
@@ -36,12 +53,19 @@ export default async function Dashboard() {
     
   // Deduplicate case-insensitive categories
   const uniqueCategories = Array.from(new Set(validCategories));
+  const basicSet = new Set(basicCategories.filter(c => c && typeof c === 'string').map(c => c.toUpperCase()));
 
-  const tiles = uniqueCategories.map(cat => ({
-    title: cat,
-    href: `/workouts?focus=${encodeURIComponent(cat)}`,
-    img: categoryImages[cat] || defaultImg,
-  }));
+  const tiles = uniqueCategories.map(cat => {
+    const isPremiumOnly = !basicSet.has(cat);
+    const isLocked = !isPremium && isPremiumOnly;
+    
+    return {
+      title: cat,
+      href: isLocked ? '/upgrade' : `/workouts?focus=${encodeURIComponent(cat)}`,
+      img: categoryImages[cat] || defaultImg,
+      isLocked
+    };
+  });
 
   return (
     <main className="pt-20 px-6 space-y-8">
@@ -99,12 +123,22 @@ export default async function Dashboard() {
         </div>
         <div className="grid grid-cols-2 gap-4">
           {tiles.length > 0 ? tiles.map((tile) => (
-            <a key={tile.title} href={tile.href} className="bg-surface-container rounded-3xl overflow-hidden flex flex-col active:scale-[0.98] transition-transform">
+            <a key={tile.title} href={tile.href} className={`bg-surface-container rounded-3xl overflow-hidden flex flex-col active:scale-[0.98] transition-all relative ${tile.isLocked ? 'opacity-60 grayscale' : ''}`}>
               <div className="relative aspect-square">
                 <img alt={`${tile.title} workout`} className="w-full h-full object-cover" src={tile.img} />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent"></div>
-                <div className="absolute bottom-3 left-3">
+                
+                {tile.isLocked && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+                    <div className="bg-surface/80 p-3 rounded-full text-white shadow-lg flex items-center justify-center border border-white/10">
+                      <span className="material-symbols-outlined text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>lock</span>
+                    </div>
+                  </div>
+                )}
+                
+                <div className="absolute bottom-3 left-3 flex items-center gap-2">
                   <h4 className="font-headline text-sm font-black uppercase italic text-white">{tile.title}</h4>
+                  {tile.isLocked && <span className="text-[8px] font-black uppercase tracking-widest bg-tertiary text-on-tertiary-fixed px-1.5 py-0.5 rounded">ELITE</span>}
                 </div>
               </div>
             </a>
