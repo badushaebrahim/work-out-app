@@ -4,6 +4,7 @@ import Workout from '@/models/Workout';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import ExerciseAccordion from '@/components/ExerciseAccordion';
+import WorkoutResetCountdown from '@/components/WorkoutResetCountdown';
 
 export default async function WorkoutDetailList({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -42,7 +43,22 @@ export default async function WorkoutDetailList({ params }: { params: Promise<{ 
         </div>
       </header>
 
-      <div className="pt-24 pb-32 px-4 max-w-md mx-auto space-y-3">
+      {/* Reset Countdown Banner — only shown when cycle is not 'never' */}
+      {workout.resetCycle && workout.resetCycle !== 'never' && (
+        <div className="fixed top-20 left-0 right-0 z-40 bg-primary/10 backdrop-blur-md border-b border-primary/20 px-6 py-2 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="material-symbols-outlined text-primary text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>autorenew</span>
+            <span className="text-[10px] font-black uppercase tracking-widest text-primary">
+              {workout.resetCycle === 'daily' ? 'Daily' :
+               workout.resetCycle === 'weekly' ? 'Weekly' :
+               workout.resetCycle === 'monthly' ? 'Monthly' : 'Yearly'} Reset
+            </span>
+          </div>
+          <WorkoutResetCountdown resetCycle={workout.resetCycle} />
+        </div>
+      )}
+
+      <div className={`pb-32 px-4 max-w-md mx-auto space-y-3 ${workout.resetCycle && workout.resetCycle !== 'never' ? 'pt-32' : 'pt-24'}`}>
         {(!workout.exercises || workout.exercises.length === 0) ? (
           <div className="bg-surface-container-low p-8 rounded-3xl text-center border border-primary/20 mt-12">
             <p className="text-on-surface-variant font-medium">No exercises have been configured for this workout yet.</p>

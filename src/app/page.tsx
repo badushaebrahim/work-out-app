@@ -32,7 +32,7 @@ export default async function Dashboard() {
         isPremium = true;
       }
     }
-  } catch (e) {}
+  } catch (e) { }
 
   // Connect to DB via wrapper
   await connectToDatabase();
@@ -50,7 +50,7 @@ export default async function Dashboard() {
   const validCategories = dbCategories
     .filter(c => c && typeof c === 'string' && c.trim().length > 0)
     .map(c => c.toUpperCase());
-    
+
   // Deduplicate case-insensitive categories
   const uniqueCategories = Array.from(new Set(validCategories));
   const basicSet = new Set(basicCategories.filter(c => c && typeof c === 'string').map(c => c.toUpperCase()));
@@ -58,7 +58,7 @@ export default async function Dashboard() {
   const tiles = uniqueCategories.map(cat => {
     const isPremiumOnly = !basicSet.has(cat);
     const isLocked = !isPremium && isPremiumOnly;
-    
+
     return {
       title: cat,
       href: isLocked ? '/upgrade' : `/workouts?focus=${encodeURIComponent(cat)}`,
@@ -103,12 +103,12 @@ export default async function Dashboard() {
       </section> */}
 
       {/* Workout Refresh Countdown */}
-      <section className="flex flex-col items-center py-6">
+      {/* <section className="flex flex-col items-center py-6">
         <h3 className="font-label text-[10px] text-on-surface-variant font-extrabold tracking-[0.4em] uppercase mb-4">
           Workout Refresh In
         </h3>
         <CountdownClock />
-      </section>
+      </section> */}
 
       {/* Target Zones Section */}
       <section className="space-y-4">
@@ -127,7 +127,7 @@ export default async function Dashboard() {
               <div className="relative aspect-square">
                 <img alt={`${tile.title} workout`} className="w-full h-full object-cover" src={tile.img} />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent"></div>
-                
+
                 {tile.isLocked && (
                   <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm">
                     <div className="bg-surface/80 p-3 rounded-full text-white shadow-lg flex items-center justify-center border border-white/10">
@@ -135,7 +135,7 @@ export default async function Dashboard() {
                     </div>
                   </div>
                 )}
-                
+
                 <div className="absolute bottom-3 left-3 flex items-center gap-2">
                   <h4 className="font-headline text-sm font-black uppercase italic text-white">{tile.title}</h4>
                   {tile.isLocked && <span className="text-[8px] font-black uppercase tracking-widest bg-tertiary text-on-tertiary-fixed px-1.5 py-0.5 rounded">ELITE</span>}

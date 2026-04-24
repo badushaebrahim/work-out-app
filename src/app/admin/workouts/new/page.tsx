@@ -51,6 +51,17 @@ export default function NewWorkoutPage() {
         </div>
 
         <div className="space-y-2">
+          <label className="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Reset Schedule</label>
+          <select name="resetCycle" defaultValue="never" className="w-full bg-surface-container-highest border-none rounded-xl py-4 px-4 text-white focus:ring-1 focus:ring-[#CCFF00]/30 outline-none appearance-none">
+            <option value="never">Never — Always Available</option>
+            <option value="daily">Daily — Resets at Midnight</option>
+            <option value="weekly">Weekly — Resets Every Monday</option>
+            <option value="monthly">Monthly — Resets 1st of Month</option>
+            <option value="yearly">Yearly — Resets Jan 1st</option>
+          </select>
+        </div>
+
+        <div className="space-y-2">
           <label className="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Detailed Description</label>
           <textarea required name="description" rows={4} className="w-full bg-surface-container-highest border-none rounded-xl py-4 px-4 text-white placeholder:text-outline focus:ring-1 focus:ring-[#CCFF00]/30 outline-none" placeholder="Enter instructional details..."></textarea>
         </div>

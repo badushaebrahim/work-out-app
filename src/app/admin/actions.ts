@@ -17,6 +17,7 @@ export async function createWorkout(formData: FormData) {
   const category = formData.get('category') as string;
   const mediaUrl = formData.get('mediaUrl') as string;
   const exercisesRaw = formData.get('exercises') as string;
+  const resetCycle = (formData.get('resetCycle') as string) || 'never';
   let exercises = [];
   try {
     if (exercisesRaw) {
@@ -31,7 +32,8 @@ export async function createWorkout(formData: FormData) {
     categories: [category],
     mediaUrl,
     mediaType: 'image',
-    exercises
+    exercises,
+    resetCycle
   });
   
   revalidatePath('/admin');
@@ -109,6 +111,7 @@ export async function updateWorkout(id: string, formData: FormData) {
   const category = formData.get('category') as string;
   const mediaUrl = formData.get('mediaUrl') as string;
   const exercisesRaw = formData.get('exercises') as string;
+  const resetCycle = (formData.get('resetCycle') as string) || 'never';
   let exercises;
   try {
     if (exercisesRaw) {
@@ -116,7 +119,7 @@ export async function updateWorkout(id: string, formData: FormData) {
     }
   } catch(e) {}
 
-  const updateData: any = { title, description, tier, categories: [category] };
+  const updateData: any = { title, description, tier, categories: [category], resetCycle };
   if (exercises) updateData.exercises = exercises;
   if (mediaUrl) updateData.mediaUrl = mediaUrl;
 

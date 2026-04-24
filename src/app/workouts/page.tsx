@@ -4,6 +4,7 @@ import Workout from '@/models/Workout';
 import Link from 'next/link';
 import { cookies } from 'next/headers';
 import { verifyJwt } from '@/lib/jwt';
+import WorkoutResetCountdown from '@/components/WorkoutResetCountdown';
 
 // Force dynamic fetch
 export const dynamic = 'force-dynamic';
@@ -90,12 +91,19 @@ export default async function WorkoutsLibrary({
                   <span className="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest">{workout.categories?.[0] || 'MIX'}</span>
                 </div>
                 <h3 className="font-headline font-bold text-white uppercase truncate">{workout.title}</h3>
-                <div className="flex items-center gap-3 mt-2">
+                <div className="flex items-center gap-3 mt-1">
                   <div className="flex items-center gap-1 text-on-surface-variant">
                     <span className="material-symbols-outlined text-[12px]">schedule</span>
                     <span className="text-[10px] uppercase font-bold tracking-wider">45m</span>
                   </div>
+                  {workout.resetCycle && workout.resetCycle !== 'never' && (
+                    <span className="text-[9px] font-bold uppercase tracking-widest px-1.5 py-0.5 rounded bg-surface-container border border-white/10 text-on-surface-variant flex items-center gap-1">
+                      <span className="material-symbols-outlined text-[10px]">autorenew</span>
+                      {workout.resetCycle}
+                    </span>
+                  )}
                 </div>
+                <WorkoutResetCountdown resetCycle={workout.resetCycle || 'never'} />
               </div>
               <div className="w-10 h-10 rounded-full bg-surface border border-white/10 flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:border-primary group-hover:text-black transition-colors">
                 <span className="material-symbols-outlined flex">{isLocked ? 'lock' : 'play_arrow'}</span>

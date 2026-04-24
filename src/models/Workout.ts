@@ -14,11 +14,12 @@ export interface IExercise {
 export interface IWorkout extends Document {
   title: string;
   description: string;
-  mediaUrl?: string; // Video or image
+  mediaUrl?: string;
   mediaType?: 'image' | 'video' | 'gif';
   tier: 'basic' | 'premium';
   categories: string[];
   exercises?: IExercise[];
+  resetCycle?: 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
   createdAt: Date;
   updatedAt: Date;
 }
@@ -64,6 +65,11 @@ const WorkoutSchema: Schema<IWorkout> = new Schema(
     exercises: {
       type: [ExerciseSchema],
       default: [],
+    },
+    resetCycle: {
+      type: String,
+      enum: ['daily', 'weekly', 'monthly', 'yearly', 'never'],
+      default: 'never',
     },
   },
   {
