@@ -8,6 +8,7 @@ export interface IExercise {
   rest: string;
   executionSteps: string[];
   trainerInsight: string;
+  imageUrl: String;
 }
 
 export interface IWorkout extends Document {
@@ -30,6 +31,7 @@ const ExerciseSchema = new Schema<IExercise>({
   rest: { type: String, required: true },
   executionSteps: [{ type: String }],
   trainerInsight: { type: String },
+  imageUrl: { type: String }
 });
 
 const WorkoutSchema: Schema<IWorkout> = new Schema(

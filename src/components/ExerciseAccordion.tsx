@@ -8,7 +8,7 @@ export default function ExerciseAccordion({ exercise, index }: { exercise: any; 
   return (
     <>
       {!isOpen ? (
-        <div 
+        <div
           onClick={() => setIsOpen(true)}
           className="bg-surface-container-low rounded-xl p-5 flex justify-between items-center transition-all hover:bg-surface-container active:scale-[0.98] cursor-pointer"
         >
@@ -25,7 +25,7 @@ export default function ExerciseAccordion({ exercise, index }: { exercise: any; 
         </div>
       ) : (
         <div className="bg-surface-container-low rounded-[2rem] overflow-hidden border border-primary/10 shadow-2xl">
-          <div 
+          <div
             onClick={() => setIsOpen(false)}
             className="p-6 flex justify-between items-start cursor-pointer"
           >
@@ -43,13 +43,13 @@ export default function ExerciseAccordion({ exercise, index }: { exercise: any; 
 
           <div className="px-4">
             <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-surface-container-lowest border border-outline-variant/30">
-              <img className="w-full h-full object-cover opacity-60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzWds04ADazJZPF1uKxk92fR82VdSbheE9wUgMCaWdlxCZWkPFRUDi0jKrZ3astlnUAsOTNIVc-C92OoiAsKmDCO1n7lUMTwsXHYPEexOSVNAUaw7d0QyyW5xWJhHzq4CnDkIHCr_A35I94H34HjDem0bAyETeKSe1N4H2SHnERnIFo0x4ZDw8c2ADirBbqx1hcsf-dEHPPnTQG72btD9vIkf4XGjCGv7OL-f2zGczzwdmjIlC_UCAQM3Do605saNA4ZZHavJpddk" />
+              <img className="w-full h-full object-cover opacity-60" src={exercise.imageUrl ? exercise.imageUrl : 'https://lh3.googleusercontent.com/aida-public/AB6AXuDzWds04ADazJZPF1uKxk92fR82VdSbheE9wUgMCaWdlxCZWkPFRUDi0jKrZ3astlnUAsOTNIVc-C92OoiAsKmDCO1n7lUMTwsXHYPEexOSVNAUaw7d0QyyW5xWJhHzq4CnDkIHCr_A35I94H34HjDem0bAyETeKSe1N4H2SHnERnIFo0x4ZDw8c2ADirBbqx1hcsf-dEHPPnTQG72btD9vIkf4XGjCGv7OL-f2zGczzwdmjIlC_UCAQM3Do605saNA4ZZHavJpddk'} />
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="w-16 h-16 rounded-full bg-primary/20 backdrop-blur-md flex items-center justify-center border border-primary/40">
                   <span className="material-symbols-outlined text-primary text-4xl" style={{ fontVariationSettings: "'FILL' 1" }}>play_arrow</span>
                 </div>
               </div>
-              
+
               <div className="absolute bottom-4 left-4 right-4 flex justify-between gap-2">
                 <div className="flex-1 bg-surface-variant/40 backdrop-blur-xl rounded-xl p-3 border border-white/5 text-center">
                   <p className="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest">Sets</p>
@@ -91,9 +91,9 @@ export default function ExerciseAccordion({ exercise, index }: { exercise: any; 
                 <p className="text-xs text-tertiary-fixed leading-relaxed italic">"{exercise.trainerInsight}"</p>
               </div>
             )}
-            
+
             <button className="w-full py-4 rounded-full bg-gradient-to-br from-primary to-primary-container text-on-primary-container font-headline font-black uppercase tracking-widest text-sm shadow-[0_10px_30px_rgba(243,255,202,0.2)] active:scale-95 transition-all">
-                LOG FIRST SET
+              LOG FIRST SET
             </button>
           </div>
         </div>

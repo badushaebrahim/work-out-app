@@ -4,6 +4,7 @@ import connectToDatabase from '@/lib/db';
 import Workout from '@/models/Workout';
 import BannerAd from '@/models/BannerAd';
 import Post from '@/models/Post';
+import Exercise from '@/models/Exercise';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
@@ -155,4 +156,72 @@ export async function updatePost(id: string, formData: FormData) {
   revalidatePath('/admin');
   revalidatePath('/admin/marketing');
   redirect('/admin/marketing');
+}
+
+export async function createExercise(formData: FormData) {
+  await connectToDatabase();
+  
+  const name = formData.get('name') as string;
+  const categories = formData.get('categories') as string;
+  const type = formData.get('type') as string;
+  const sets = parseInt(formData.get('sets') as string, 10);
+  const reps = formData.get('reps') as string;
+  const rest = formData.get('rest') as string;
+  const executionStepsRaw = formData.get('executionSteps') as string;
+  const executionSteps = executionStepsRaw ? executionStepsRaw.split('\n').filter(s => s.trim() !== '') : [];
+  const trainerInsight = formData.get('trainerInsight') as string;
+  
+  await Exercise.create({
+    name,
+    categories,
+    type,
+    sets,
+    reps,
+    rest,
+    executionSteps,
+    trainerInsight
+  });
+  
+  revalidatePath('/admin');
+  redirect('/admin');
+}
+
+export async function updateExercise(id: string, formData: FormData) {
+  await connectToDatabase();
+  
+  const name = formData.get('name') as string;
+  const categories = formData.get('categories') as string;
+  const type = formData.get('type') as string;
+  const sets = parseInt(formData.get('sets') as string, 10);
+  const reps = formData.get('reps') as string;
+  const rest = formData.get('rest') as string;
+  const executionStepsRaw = formData.get('executionSteps') as string;
+  const executionSteps = executionStepsRaw ? executionStepsRaw.split('\n').filter(s => s.trim() !== '') : [];
+  const trainerInsight = formData.get('trainerInsight') as string;
+
+  await Exercise.findByIdAndUpdate(id, {
+    name,
+    categories,
+    type,
+    sets,
+    reps,
+    rest,
+    executionSteps,
+    trainerInsight
+  });
+  
+  revalidatePath('/admin');
+  redirect('/admin');
+}
+
+export async function deleteExercise(id: string) {
+  await connectToDatabase();
+  await Exercise.findByIdAndDelete(id);
+  revalidatePath('/admin');
+}
+
+export async function getExercises() {
+  await connectToDatabase();
+  const exercises = await Exercise.find().sort({ name: 1 }).lean();
+  return JSON.parse(JSON.stringify(exercises));
 }

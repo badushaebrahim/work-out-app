@@ -1,9 +1,10 @@
 import mongoose from 'mongoose';
 import Workout from '@/models/Workout';
 import BannerAd from '@/models/BannerAd';
+import Exercise from '@/models/Exercise';
 import connectToDatabase from '@/lib/db';
 import Link from 'next/link';
-import { deleteWorkout, deleteBannerAd } from './actions';
+import { deleteWorkout, deleteBannerAd, deleteExercise } from './actions';
 
 export const dynamic = 'force-dynamic';
 
@@ -12,6 +13,7 @@ export default async function AdminDashboard() {
   
   const workouts = await Workout.find().sort({ createdAt: -1 }).limit(10).lean();
   const banners = await BannerAd.find().sort({ createdAt: -1 }).limit(10).lean();
+  const exercises = await Exercise.find().sort({ createdAt: -1 }).limit(10).lean();
   
   return (
     <div className="space-y-10">
@@ -90,6 +92,47 @@ export default async function AdminDashboard() {
                     <form action={async () => {
                       'use server';
                       await deleteBannerAd(ad._id.toString());
+                    }}>
+                      <button type="submit" className="material-symbols-outlined text-error hover:text-error-dim transition-colors mt-2">delete</button>
+                    </form>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </div>
+
+        {/* Exercises Management */}
+        <div className="bg-surface-container-low rounded-2xl border border-white/5 p-6">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="font-headline font-bold text-xl uppercase tracking-widest text-white">Exercises</h2>
+            <Link href="/admin/exercises/new" className="bg-[#CCFF00] text-black px-6 py-2 rounded-full font-bold uppercase tracking-widest text-xs active:scale-95 transition-transform flex items-center gap-2">
+              <span className="material-symbols-outlined text-sm">add</span> Add New
+            </Link>
+          </div>
+          
+          <div className="space-y-4">
+            {exercises.length === 0 ? (
+              <p className="text-on-surface-variant font-medium text-center py-8">No exercises configured yet.</p>
+            ) : (
+              exercises.map((exercise: any) => (
+                <div key={exercise._id.toString()} className="flex items-center justify-between p-4 rounded-xl bg-surface-container-highest border border-white/5">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-lg bg-surface-container-lowest flex items-center justify-center">
+                      <span className="material-symbols-outlined text-white opacity-50">fitness_center</span>
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-white uppercase tracking-wider">{exercise.name}</h4>
+                      <span className="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">
+                        {exercise.categories || 'UNCATEGORIZED'}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex gap-2 items-center">
+                    <Link href={`/admin/exercises/${exercise._id}/edit`} className="material-symbols-outlined text-on-surface-variant hover:text-white transition-colors">edit</Link>
+                    <form action={async () => {
+                      'use server';
+                      await deleteExercise(exercise._id.toString());
                     }}>
                       <button type="submit" className="material-symbols-outlined text-error hover:text-error-dim transition-colors mt-2">delete</button>
                     </form>

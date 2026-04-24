@@ -3,10 +3,13 @@
 import { useState } from "react";
 import { UploadDropzone } from "@/lib/uploadthing";
 import { createWorkout } from "@/app/admin/actions";
+import ExerciseImporter from "@/components/ExerciseImporter";
 
 export default function NewWorkoutPage() {
   const [mediaUrl, setMediaUrl] = useState<string>("");
   const [loading, setLoading] = useState(false);
+
+
 
   return (
     <div className="max-w-2xl">
@@ -53,8 +56,17 @@ export default function NewWorkoutPage() {
         </div>
 
         <div className="space-y-2">
-          <label className="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Exercises (JSON Array)</label>
-          <textarea name="exercises" rows={6} className="w-full bg-surface-container-highest border-none rounded-xl py-4 px-4 text-white placeholder:text-outline focus:ring-1 focus:ring-[#CCFF00]/30 outline-none font-mono text-xs" placeholder='[{"name": "Bench Press", "type": "Compound", "sets": 4, "reps": "8-12", "rest": "90s", "executionSteps": ["Step 1"], "trainerInsight": "Note"}]'></textarea>
+          <div className="flex items-center justify-between">
+            <label className="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Exercises (JSON Array)</label>
+            <ExerciseImporter targetId="exercises-input" />
+          </div>
+          <textarea 
+            id="exercises-input"
+            name="exercises" 
+            rows={6} 
+            className="w-full bg-surface-container-highest border-none rounded-xl py-4 px-4 text-white placeholder:text-outline focus:ring-1 focus:ring-[#CCFF00]/30 outline-none font-mono text-xs" 
+            placeholder='[{"name": "Bench Press", "type": "Compound", "sets": 4, "reps": "8-12", "rest": "90s", "executionSteps": ["Step 1"], "trainerInsight": "Note"}]'
+          ></textarea>
         </div>
 
         <div className="space-y-2">
