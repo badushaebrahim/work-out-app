@@ -17,6 +17,7 @@ const manrope = Manrope({
 import Header from '@/components/Header';
 import Navigation from '@/components/Navigation';
 import ServiceWorkerRegistrar from '@/components/ServiceWorkerRegistrar';
+import PWAInstallPrompt from '@/components/PWAInstallPrompt';
 
 export const metadata: Metadata = {
   title: 'BUDDY ELITE | DASHBOARD',
@@ -52,6 +53,7 @@ export default function RootLayout({
       <body className={`${lexend.variable} ${manrope.variable} antialiased min-h-[100dvh] flex flex-col pb-24`} suppressHydrationWarning>
         <Header />
         <ServiceWorkerRegistrar />
+        <PWAInstallPrompt />
         {children}
         <Navigation />
       </body>
