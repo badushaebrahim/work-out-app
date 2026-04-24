@@ -10,7 +10,7 @@ import bcrypt from 'bcrypt';
 export async function requestPasswordReset(email: string, origin: string) {
   try {
     await connectToDatabase();
-    
+
     const user = await User.findOne({ email: email.toLowerCase() });
     if (!user) {
       // Don't reveal if user exists or not for security reasons
@@ -30,9 +30,9 @@ export async function requestPasswordReset(email: string, origin: string) {
     });
 
     const resetUrl = `${origin}/reset-password?token=${token}`;
-    
+
     // Send email
-    await sendPasswordResetEmail(user.email, resetUrl);
+    await sendPasswordResetEmail(user.email ?? "", resetUrl);
 
     return { success: true };
   } catch (error) {
