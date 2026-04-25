@@ -11,7 +11,7 @@ const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret';
 export async function POST(req: Request) {
   try {
     await connectToDatabase();
-    const { email, encryptedPassword } = await req.json();
+    const { email, encryptedPassword, deviceId, forceDeviceUpdate } = await req.json();
 
     if (!email || !encryptedPassword) {
       return NextResponse.json({ message: 'Email and password required' }, { status: 400 });
@@ -27,6 +27,22 @@ export async function POST(req: Request) {
 
     if (!isValid) {
       return NextResponse.json({ message: 'Invalid credentials' }, { status: 401 });
+    }
+
+    // Device ID check — only if user already has a deviceId stored
+    if (deviceId && user.deviceId && user.deviceId !== deviceId && !forceDeviceUpdate) {
+      // Device mismatch — ask for confirmation before proceeding
+      return NextResponse.json({
+        message: 'This account is linked to another device. Do you want to switch to this device? Only one device can be active at a time.',
+        deviceMismatch: true,
+        currentDevice: user.deviceId.slice(-6), // show last 6 chars for reference
+      }, { status: 409 });
+    }
+
+    // If forceDeviceUpdate is true OR this is a new device for a user without one, update it
+    if (deviceId && (forceDeviceUpdate || !user.deviceId)) {
+      user.deviceId = deviceId;
+      await user.save();
     }
 
     const token = jwt.sign(

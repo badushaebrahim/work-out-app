@@ -51,9 +51,14 @@ export default async function ProfilePage() {
 
       <div className="mt-8 space-y-4">
         {user.role === 'basic' && (
-          <button className="w-full bg-gradient-to-br from-tertiary to-tertiary-dim text-black font-headline font-black py-4 rounded-xl uppercase tracking-widest active:scale-95 transition-transform">
-            Upgrade to Premium
-          </button>
+          <form action={async () => {
+            'use server';
+
+            redirect('/upgrade');
+          }}>
+            <button className="w-full bg-gradient-to-br from-tertiary to-tertiary-dim text-black font-headline font-black py-4 rounded-xl uppercase tracking-widest active:scale-95 transition-transform">
+              Upgrade to Premium
+            </button></form>
         )}
         <form action={async () => {
           'use server';

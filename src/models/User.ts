@@ -14,10 +14,15 @@ export interface IUser extends Document {
   };
   createdAt: Date;
   updatedAt: Date;
+  userName: String;
 }
 
 const UserSchema: Schema<IUser> = new Schema(
   {
+    userName: {
+      type: String,
+      trim: true,
+    },
     email: {
       type: String,
       unique: true,
@@ -35,7 +40,7 @@ const UserSchema: Schema<IUser> = new Schema(
     },
     deviceId: {
       type: String,
-      unique: true,
+      // unique: true,
       sparse: true, // sparse because registered users might not rely on deviceId uniquely
     },
     firstVisitDate: {

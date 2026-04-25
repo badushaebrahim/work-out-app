@@ -9,28 +9,37 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [deviceMismatch, setDeviceMismatch] = useState(false);
+  const [mismatchMessage, setMismatchMessage] = useState('');
   const router = useRouter();
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const doLogin = async (forceDeviceUpdate = false) => {
     setLoading(true);
     setError('');
 
     try {
-      // Import the dynamic client side crypto encryption to secure password
+      const deviceId = localStorage.getItem('buddy_device_id') || '';
       const { encryptPasswordClientSide } = await import('@/lib/encryption');
       const encryptedPassword = encryptPasswordClientSide(password);
 
       const res = await fetch('/api/auth/login', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email, encryptedPassword })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, encryptedPassword, deviceId, forceDeviceUpdate }),
       });
 
       const data = await res.json();
+
+      if (res.status === 409 && data.deviceMismatch) {
+        // Show device mismatch confirmation
+        setDeviceMismatch(true);
+        setMismatchMessage(data.message);
+        setLoading(false);
+        return;
+      }
+
       if (res.ok) {
+        setDeviceMismatch(false);
         // Redirect based on role
         if (data.user.role === 'admin') {
           router.push('/admin');
@@ -38,13 +47,28 @@ export default function Login() {
           router.push('/profile');
         }
       } else {
-        setError(data.error || 'Failed to login');
+        setError(data.message || 'Failed to login');
       }
     } catch (err) {
       setError('An error occurred during login.');
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setDeviceMismatch(false);
+    await doLogin(false);
+  };
+
+  const handleConfirmDeviceSwitch = async () => {
+    await doLogin(true);
+  };
+
+  const handleCancelDeviceSwitch = () => {
+    setDeviceMismatch(false);
+    setMismatchMessage('');
   };
 
   return (
@@ -64,7 +88,7 @@ export default function Login() {
             PUSH<br />BEYOND
           </h1>
           <p className="font-body text-xl text-on-surface-variant max-w-md font-light leading-relaxed">
-            Access your elite training ecosystem. Performance isn't an act, it's a habit.
+            Access your elite training ecosystem. Performance isn&apos;t an act, it&apos;s a habit.
           </p>
         </div>
       </div>
@@ -85,6 +109,34 @@ export default function Login() {
         {error && (
           <div className="mb-4 p-4 border border-error-dim bg-error-dim/20 rounded-xl text-error text-sm font-bold">
             {error}
+          </div>
+        )}
+
+        {/* Device Mismatch Confirmation Dialog */}
+        {deviceMismatch && (
+          <div className="mb-6 bg-surface-container-highest border border-tertiary/30 rounded-2xl p-6 space-y-4 animate-in">
+            <div className="flex items-start gap-3">
+              <span className="material-symbols-outlined text-tertiary text-2xl mt-0.5" style={{ fontVariationSettings: "'FILL' 1" }}>phonelink_lock</span>
+              <div>
+                <h3 className="font-headline font-bold text-sm uppercase tracking-widest text-white mb-2">Device Change Detected</h3>
+                <p className="text-on-surface-variant text-sm leading-relaxed">{mismatchMessage}</p>
+              </div>
+            </div>
+            <div className="flex gap-3 pt-2">
+              <button
+                onClick={handleConfirmDeviceSwitch}
+                disabled={loading}
+                className="flex-1 bg-gradient-to-br from-tertiary to-tertiary-dim text-black font-headline font-bold py-3 rounded-full uppercase tracking-widest text-xs active:scale-95 transition-all disabled:opacity-50"
+              >
+                {loading ? 'Switching...' : 'Yes, Switch Device'}
+              </button>
+              <button
+                onClick={handleCancelDeviceSwitch}
+                className="flex-1 bg-surface-container-low text-white border border-white/10 font-headline font-bold py-3 rounded-full uppercase tracking-widest text-xs active:scale-95 transition-all"
+              >
+                Cancel
+              </button>
+            </div>
           </div>
         )}
 
@@ -144,7 +196,7 @@ export default function Login() {
 
         <div className="mt-12 space-y-8">
           <p className="text-center text-sm font-body text-on-surface-variant">
-            Don't have an account? 
+            Don&apos;t have an account? 
             <Link href="/register" className="text-[#CCFF00] font-bold uppercase tracking-tight ml-1 hover:underline underline-offset-4">Register Now</Link>
           </p>
         </div>

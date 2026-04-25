@@ -7,10 +7,10 @@ import { decryptPasswordServerSide } from '@/lib/encryption';
 export async function POST(req: Request) {
   try {
     await connectToDatabase();
-    const { email, encryptedPassword, deviceId } = await req.json();
+    const { email, encryptedPassword, deviceId, name } = await req.json();
 
-    if (!email || !encryptedPassword) {
-      return NextResponse.json({ message: 'Email and password required' }, { status: 400 });
+    if (!email || !encryptedPassword || !name) {
+      return NextResponse.json({ message: 'Email, password, and name are required' }, { status: 400 });
     }
 
     const existingUser = await User.findOne({ email });
@@ -25,8 +25,9 @@ export async function POST(req: Request) {
     const user = await User.create({
       email,
       password: hashedPassword,
-      deviceId, // optionally migrate anonymous trial device to permanent
+      deviceId, // bind this device to the account on registration
       role: 'basic',
+      userName: name,
     });
 
     return NextResponse.json({ message: 'User created successfully', userId: user._id }, { status: 201 });
