@@ -4,17 +4,19 @@ import BannerAd from '@/models/BannerAd';
 import Exercise from '@/models/Exercise';
 import connectToDatabase from '@/lib/db';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
+import { cookies } from 'next/headers';
 import { deleteWorkout, deleteBannerAd, deleteExercise } from './actions';
 
 export const dynamic = 'force-dynamic';
 
 export default async function AdminDashboard() {
   await connectToDatabase();
-  
+
   const workouts = await Workout.find().sort({ createdAt: -1 }).limit(10).lean();
   const banners = await BannerAd.find().sort({ createdAt: -1 }).limit(10).lean();
   const exercises = await Exercise.find().sort({ createdAt: -1 }).limit(10).lean();
-  
+
   return (
     <div className="space-y-10">
       <div>
@@ -31,7 +33,7 @@ export default async function AdminDashboard() {
               <span className="material-symbols-outlined text-sm">add</span> Add New
             </Link>
           </div>
-          
+
           <div className="space-y-4">
             {workouts.length === 0 ? (
               <p className="text-on-surface-variant font-medium text-center py-8">No workouts configured yet.</p>
@@ -72,7 +74,7 @@ export default async function AdminDashboard() {
               <span className="material-symbols-outlined text-sm">add</span> Add New
             </Link>
           </div>
-          
+
           <div className="space-y-4">
             {banners.length === 0 ? (
               <p className="text-on-surface-variant font-medium text-center py-8">No banners configured yet.</p>
@@ -110,7 +112,7 @@ export default async function AdminDashboard() {
               <span className="material-symbols-outlined text-sm">add</span> Add New
             </Link>
           </div>
-          
+
           <div className="space-y-4">
             {exercises.length === 0 ? (
               <p className="text-on-surface-variant font-medium text-center py-8">No exercises configured yet.</p>
@@ -141,7 +143,20 @@ export default async function AdminDashboard() {
               ))
             )}
           </div>
+
         </div>
+        <div className="bg-surface-container-low rounded-2xl border border-white/5 p-6">
+
+          <form action={async () => {
+            'use server';
+            const cookieStore2 = await cookies();
+            cookieStore2.delete('authToken');
+            redirect('/login');
+          }}>
+            <button type="submit" className="w-full bg-surface-container-low text-error border border-error/20 font-headline py-4 rounded-xl active:scale-95 transition-transform">
+              Sign Out
+            </button>
+          </form></div>
 
       </div>
     </div>
