@@ -173,6 +173,7 @@ export async function createExercise(formData: FormData) {
   const executionStepsRaw = formData.get('executionSteps') as string;
   const executionSteps = executionStepsRaw ? executionStepsRaw.split('\n').filter(s => s.trim() !== '') : [];
   const trainerInsight = formData.get('trainerInsight') as string;
+  const imageUrl = formData.get('imageUrl') as string;
   
   await Exercise.create({
     name,
@@ -182,7 +183,8 @@ export async function createExercise(formData: FormData) {
     reps,
     rest,
     executionSteps,
-    trainerInsight
+    trainerInsight,
+    imageUrl: imageUrl || '',
   });
   
   revalidatePath('/admin');
