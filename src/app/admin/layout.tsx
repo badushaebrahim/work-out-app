@@ -27,6 +27,14 @@ export default function AdminLayout({
             <span className="material-symbols-outlined">campaign</span>
             Marketing
           </a>
+          <a href="/admin/complaints" className="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-white transition-colors font-bold text-sm tracking-widest uppercase">
+            <span className="material-symbols-outlined">support_agent</span>
+            Complaints
+          </a>
+          <a href="/admin/trainers" className="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-white transition-colors font-bold text-sm tracking-widest uppercase">
+            <span className="material-symbols-outlined">sports</span>
+            Trainers
+          </a>
         </nav>
         <div className="p-4 border-t border-white/5">
           <a href="/" className="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-white transition-colors font-bold text-sm tracking-widest uppercase">

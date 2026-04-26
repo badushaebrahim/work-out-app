@@ -5,6 +5,8 @@ import Workout from '@/models/Workout';
 import BannerAd from '@/models/BannerAd';
 import Post from '@/models/Post';
 import Exercise from '@/models/Exercise';
+import Complaint from '@/models/Complaint';
+import TrainerQuery from '@/models/TrainerQuery';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
@@ -229,4 +231,42 @@ export async function getExercises() {
   await connectToDatabase();
   const exercises = await Exercise.find().sort({ name: 1 }).lean();
   return JSON.parse(JSON.stringify(exercises));
+}
+
+// COMPLAINTS
+export async function getComplaints() {
+  await connectToDatabase();
+  const complaints = await Complaint.find().sort({ createdAt: -1 }).lean();
+  return JSON.parse(JSON.stringify(complaints));
+}
+
+export async function updateComplaintStatus(id: string, status: string, adminNotes: string) {
+  await connectToDatabase();
+  await Complaint.findByIdAndUpdate(id, { status, adminNotes });
+  revalidatePath('/admin/complaints');
+}
+
+export async function deleteComplaint(id: string) {
+  await connectToDatabase();
+  await Complaint.findByIdAndDelete(id);
+  revalidatePath('/admin/complaints');
+}
+
+// TRAINER QUERIES
+export async function getTrainerQueries() {
+  await connectToDatabase();
+  const queries = await TrainerQuery.find().sort({ createdAt: -1 }).lean();
+  return JSON.parse(JSON.stringify(queries));
+}
+
+export async function updateTrainerQueryStatus(id: string, status: string, adminNotes: string) {
+  await connectToDatabase();
+  await TrainerQuery.findByIdAndUpdate(id, { status, adminNotes });
+  revalidatePath('/admin/trainers');
+}
+
+export async function deleteTrainerQuery(id: string) {
+  await connectToDatabase();
+  await TrainerQuery.findByIdAndDelete(id);
+  revalidatePath('/admin/trainers');
 }

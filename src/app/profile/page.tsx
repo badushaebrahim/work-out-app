@@ -3,6 +3,7 @@ import { verifyJwt } from '@/lib/jwt';
 import { redirect } from 'next/navigation';
 import connectToDatabase from '@/lib/db';
 import User from '@/models/User';
+import { FAQSection, ComplaintForm, TrainerQueryForm } from './ProfileForms';
 
 export default async function ProfilePage() {
   const cookieStore = await cookies();
@@ -49,7 +50,13 @@ export default async function ProfilePage() {
         </div>
       </div>
 
-      <div className="mt-8 space-y-4">
+      <FAQSection />
+
+      <ComplaintForm userEmail={user.email || 'unknown'} />
+
+      <TrainerQueryForm userEmail={user.email || 'unknown'} />
+
+      <div className="mt-12 space-y-4">
         {user.role === 'basic' && (
           <form action={async () => {
             'use server';
