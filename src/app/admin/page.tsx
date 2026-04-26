@@ -2,11 +2,15 @@ import mongoose from 'mongoose';
 import Workout from '@/models/Workout';
 import BannerAd from '@/models/BannerAd';
 import Exercise from '@/models/Exercise';
+import Complaint from '@/models/Complaint';
+import TrainerQuery from '@/models/TrainerQuery';
 import connectToDatabase from '@/lib/db';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import { deleteWorkout, deleteBannerAd, deleteExercise } from './actions';
+import ComplaintsManager from './complaints/ComplaintsManager';
+import TrainersManager from './trainers/TrainersManager';
 
 export const dynamic = 'force-dynamic';
 
@@ -16,6 +20,11 @@ export default async function AdminDashboard() {
   const workouts = await Workout.find().sort({ createdAt: -1 }).limit(10).lean();
   const banners = await BannerAd.find().sort({ createdAt: -1 }).limit(10).lean();
   const exercises = await Exercise.find().sort({ createdAt: -1 }).limit(10).lean();
+  const complaints = await Complaint.find().sort({ createdAt: -1 }).lean();
+  const trainerQueries = await TrainerQuery.find().sort({ createdAt: -1 }).lean();
+
+  const serializedComplaints = JSON.parse(JSON.stringify(complaints));
+  const serializedTrainerQueries = JSON.parse(JSON.stringify(trainerQueries));
 
   return (
     <div className="space-y-10">
@@ -146,7 +155,6 @@ export default async function AdminDashboard() {
 
         </div>
         <div className="bg-surface-container-low rounded-2xl border border-white/5 p-6">
-
           <form action={async () => {
             'use server';
             const cookieStore2 = await cookies();
@@ -156,9 +164,49 @@ export default async function AdminDashboard() {
             <button type="submit" className="w-full bg-surface-container-low text-error border border-error/20 font-headline py-4 rounded-xl active:scale-95 transition-transform">
               Sign Out
             </button>
-          </form></div>
-
+          </form>
+        </div>
       </div>
+
+      {/* Accordions for Complaints & Trainer Queries */}
+      <div className="space-y-4">
+        {/* Complaints Accordion */}
+        <details className="group bg-surface-container-low rounded-2xl border border-white/5 overflow-hidden">
+          <summary className="flex items-center justify-between p-6 cursor-pointer list-none hover:bg-surface-container-high transition-colors">
+            <div className="flex items-center gap-3">
+              <span className="material-symbols-outlined text-white">support_agent</span>
+              <h2 className="font-headline font-bold text-xl uppercase tracking-widest text-white">
+                Complaints & Queries ({complaints.length})
+              </h2>
+            </div>
+            <span className="material-symbols-outlined text-on-surface-variant transition-transform duration-300 group-open:rotate-180">
+              expand_more
+            </span>
+          </summary>
+          <div className="p-6 border-t border-white/5 bg-background/50">
+            <ComplaintsManager initialComplaints={serializedComplaints} />
+          </div>
+        </details>
+
+        {/* Trainer Queries Accordion */}
+        <details className="group bg-surface-container-low rounded-2xl border border-white/5 overflow-hidden">
+          <summary className="flex items-center justify-between p-6 cursor-pointer list-none hover:bg-surface-container-high transition-colors">
+            <div className="flex items-center gap-3">
+              <span className="material-symbols-outlined text-white">sports</span>
+              <h2 className="font-headline font-bold text-xl uppercase tracking-widest text-white">
+                Trainer Partnerships ({trainerQueries.length})
+              </h2>
+            </div>
+            <span className="material-symbols-outlined text-on-surface-variant transition-transform duration-300 group-open:rotate-180">
+              expand_more
+            </span>
+          </summary>
+          <div className="p-6 border-t border-white/5 bg-background/50">
+            <TrainersManager initialQueries={serializedTrainerQueries} />
+          </div>
+        </details>
+      </div>
+
     </div>
   );
 }
